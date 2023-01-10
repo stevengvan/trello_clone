@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import "./App.css";
 import { useState } from "react";
 import Kanban from "./components/Kanban";
@@ -21,9 +20,7 @@ function App() {
 
   return (
     <div className="App">
-      <div className="board-title">
-        <h1>{title}</h1>
-      </div>
+      <p className="board-title">{title}</p>
       <Kanban data={lists} />
     </div>
   );

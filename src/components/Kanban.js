@@ -1,4 +1,11 @@
 import React, { useState, useRef } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  solid,
+  regular,
+  brands,
+  icon,
+} from "@fortawesome/fontawesome-svg-core/import.macro";
 
 function Kanban({ data }) {
   const [lists, setList] = useState(data);
@@ -63,7 +70,14 @@ function Kanban({ data }) {
                 : null
             }
           >
-            <h6 className="list-title">{list.title}</h6>
+            <div className="list-title">
+              <h6 className="list-text">{list.title}</h6>
+              <FontAwesomeIcon
+                icon={solid("ellipsis")}
+                size="xl"
+                className="list-options"
+              />
+            </div>
             {list.items.map((item, iIndex) => {
               return (
                 <div
@@ -87,11 +101,16 @@ function Kanban({ data }) {
                 </div>
               );
             })}
+            <div className="row add-card">
+              <FontAwesomeIcon icon={solid("plus")} />
+              <h6 className="add-text">Add a card</h6>
+            </div>
           </div>
         );
       })}
-      <div className="list">
-        <h6 className="list-title">Add another list</h6>
+      <div className="row add-list">
+        <FontAwesomeIcon icon={solid("plus")} />
+        <h6 className="add-text">Add another list</h6>
       </div>
     </div>
   );
