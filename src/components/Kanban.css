@@ -111,6 +111,7 @@
   height: 30px;
   font-size: x-large;
   font-weight: bold;
+  align-self: center;
 }
 
 .add-buttons {
