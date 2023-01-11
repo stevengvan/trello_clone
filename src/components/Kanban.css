@@ -15,7 +15,8 @@
   background-color: #484f5e;
   border-radius: 5px;
   padding: 0.5rem;
-  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 .list-title {
@@ -38,6 +39,12 @@
   background-color: rgba(26, 29, 34, 0.5);
   transition-duration: 250ms;
   cursor: pointer;
+}
+
+.list-scroll {
+  overflow-y: auto;
+  width: 100%;
+  padding-right: 0.25rem;
 }
 
 .list-item {

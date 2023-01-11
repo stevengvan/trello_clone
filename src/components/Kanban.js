@@ -104,29 +104,31 @@ function Kanban() {
                 <FontAwesomeIcon icon={solid("ellipsis")} size="xl" />
               </button>
             </div>
-            {list.items.map((item, iIndex) => {
-              return (
-                <div
-                  draggable
-                  onDragStart={(e) => {
-                    handleDragStart(e, { gIndex, iIndex });
-                  }}
-                  onDragEnter={
-                    dragging
-                      ? (e) => {
-                          handleDragEnter(e, { gIndex, iIndex });
-                        }
-                      : null
-                  }
-                  key={iIndex}
-                  className={
-                    dragging ? getStyles({ gIndex, iIndex }) : "list-item"
-                  }
-                >
-                  {item}
-                </div>
-              );
-            })}
+            <div className="list-scroll">
+              {list.items.map((item, iIndex) => {
+                return (
+                  <div
+                    draggable
+                    onDragStart={(e) => {
+                      handleDragStart(e, { gIndex, iIndex });
+                    }}
+                    onDragEnter={
+                      dragging
+                        ? (e) => {
+                            handleDragEnter(e, { gIndex, iIndex });
+                          }
+                        : null
+                    }
+                    key={iIndex}
+                    className={
+                      dragging ? getStyles({ gIndex, iIndex }) : "list-item"
+                    }
+                  >
+                    {item}
+                  </div>
+                );
+              })}
+            </div>
             <button className="row add-card">
               <FontAwesomeIcon icon={solid("plus")} size="xl" />
               <h6 className="add-text">Add a card</h6>
