@@ -6,6 +6,7 @@ import {
   brands,
   icon,
 } from "@fortawesome/fontawesome-svg-core/import.macro";
+import "./Kanban.css";
 
 function Kanban({ data }) {
   const [lists, setList] = useState(data);
@@ -72,11 +73,9 @@ function Kanban({ data }) {
           >
             <div className="list-title">
               <h6 className="list-text">{list.title}</h6>
-              <FontAwesomeIcon
-                icon={solid("ellipsis")}
-                size="xl"
-                className="list-options"
-              />
+              <button className="list-options">
+                <FontAwesomeIcon icon={solid("ellipsis")} size="xl" />
+              </button>
             </div>
             {list.items.map((item, iIndex) => {
               return (
@@ -101,16 +100,27 @@ function Kanban({ data }) {
                 </div>
               );
             })}
-            <div className="row add-card">
-              <FontAwesomeIcon icon={solid("plus")} />
+            <button className="row add-card">
+              <FontAwesomeIcon icon={solid("plus")} size="xl" />
               <h6 className="add-text">Add a card</h6>
-            </div>
+            </button>
           </div>
         );
       })}
-      <div className="row add-list">
-        <FontAwesomeIcon icon={solid("plus")} />
+      <button className="row add-list-button">
+        <FontAwesomeIcon icon={solid("plus")} size="xl" />
         <h6 className="add-text">Add another list</h6>
+      </button>
+      <div className="column add-list">
+        <input type={"text"} className="add-input" />
+        <div className="row add-buttons">
+          <h6 className="add-text add-button">Add list</h6>
+          <FontAwesomeIcon
+            icon={solid("xmark")}
+            size="2xl"
+            className="add-cancel"
+          />
+        </div>
       </div>
     </div>
   );

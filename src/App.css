@@ -8,6 +8,8 @@ h6 {
 
 ::-webkit-scrollbar {
   border-radius: 5px;
+  width: 5px;
+  height: 10px;
 }
 ::-webkit-scrollbar-thumb {
   background: #737f99;
@@ -43,105 +45,24 @@ h6 {
 }
 
 .board-title {
-  font-size: calc(20px + 2vmin);
-  font-weight: bold;
   display: flex;
   align-items: center;
   height: 10vh;
   padding-left: 0.5rem;
 }
-
-.list-space {
-  padding: 0 0.5rem;
-  gap: 0.5rem;
-  height: 90vh;
-  display: flex;
-  align-items: start;
-  overflow-x: auto;
-  overflow-y: hidden;
-}
-
-.list {
-  max-width: 300px;
-  min-width: 300px;
-  max-height: 90%;
-  background-color: #484f5e;
+.board-text {
   border-radius: 5px;
-  padding: 0.5rem;
-  overflow-y: auto;
-}
-
-.list-title {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  max-height: 50px;
-  margin-bottom: 0.5rem;
-}
-.list-text {
-  font-size: 1.5rem;
-}
-.list-options {
-  padding: 0.25rem;
-  border-radius: 2.5px;
-}
-.list-options:hover {
-  background-color: rgba(26, 29, 34, 0.5);
-  transition-duration: 250ms;
-  cursor: pointer;
-}
-
-.list-item {
-  font-size: 1.2rem;
-  background-color: white;
-  color: #282c34;
   font-weight: bold;
+  font-size: calc(10px + 2vmin);
+  background-color: transparent;
+  border-style: none;
   padding: 0.5rem;
-  border-radius: 5px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 150px;
 }
-.list-item:not(:last-of-type) {
-  margin-bottom: 0.5rem;
-}
-
-.current {
-  background-color: #282c34;
-}
-
-.add-card {
-  background-color: #484f5e;
-  border-radius: 5px;
-  align-items: center;
-  padding: 0 10px;
-}
-.add-card:hover {
-  background-color: rgba(26, 29, 34, 0.5);
-  cursor: pointer;
+.board-text:hover {
+  background-color: rgba(19, 20, 24, 0.5);
   transition-duration: 250ms;
-}
-.add-card *:first-child {
-  margin-right: 10px;
-}
-
-.add-list {
-  min-width: 300px;
-  background-color: rgba(72, 79, 94, 0.5);
-  border-radius: 5px;
-  padding: 0.5rem;
-  align-items: center;
-}
-.add-list:hover {
-  background-color: rgba(26, 29, 34, 0.5);
   cursor: pointer;
-  transition-duration: 250ms;
 }
-.add-list *:first-child {
-  margin-right: 10px;
-}
-
-.add-text {
-  font-size: 1.5rem;
+.board-text:focus {
+  background-color: white;
 }
