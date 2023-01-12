@@ -57,7 +57,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 150px;
+  /* min-height: 150px; */
 }
 .list-item:not(:last-of-type) {
   margin-bottom: 0.5rem;
@@ -86,6 +86,7 @@
 }
 
 .add-list-button {
+  max-width: 300px;
   min-width: 300px;
   background-color: rgba(72, 79, 94, 0.5);
   border-radius: 5px;
@@ -107,22 +108,33 @@
 }
 
 .add-list {
+  max-width: 300px;
   min-width: 300px;
   background-color: rgba(72, 79, 94, 0.5);
   border-radius: 5px;
-  padding: 0.5rem;
 }
 
 .add-input {
-  width: 100%;
+  width: 95%;
   height: 30px;
-  font-size: x-large;
+  margin-top: 0.5rem;
   font-weight: bold;
   align-self: center;
+  border-radius: 5px;
+  padding-left: 10px;
+  border-style: none;
+}
+.input-title {
+  font-size: x-large;
+}
+.input-card {
+  font-size: large;
+  height: 60px;
+  text-align: left;
 }
 
 .add-buttons {
-  margin-top: 10px;
+  margin: 10px 0.5rem;
   align-items: center;
 }
 

@@ -23,7 +23,10 @@ function Kanban() {
     { title: "Done", items: [] },
   ]);
   const [listTitle, setListTitle] = useState("");
-  const [toggleAddL, setToggleAddL] = useState(false);
+  const [newList, setNewList] = useState(false);
+  const [cardTitle, setCardTitle] = useState("");
+  const [newCard, setNewCard] = useState(false);
+  const [currList, setCurrList] = useState(null);
   const [dragging, setDragging] = useState(false);
   const dragItem = useRef();
   const dragNode = useRef();
@@ -43,10 +46,10 @@ function Kanban() {
     const currItem = dragItem.current;
     setLists((oldList) => {
       let newList = JSON.parse(JSON.stringify(oldList));
-      newList[params.gIndex].items.splice(
+      newList[params.lIndex].items.splice(
         params.iIndex,
         0,
-        newList[currItem.gIndex].items.splice(currItem.iIndex, 1)[0]
+        newList[currItem.lIndex].items.splice(currItem.iIndex, 1)[0]
       );
       dragItem.current = params;
       return newList;
@@ -64,7 +67,7 @@ function Kanban() {
   const getStyles = (params) => {
     const currItem = dragItem.current;
     if (
-      currItem.gIndex === params.gIndex &&
+      currItem.lIndex === params.lIndex &&
       currItem.iIndex === params.iIndex
     ) {
       return "current list-item";
@@ -81,20 +84,37 @@ function Kanban() {
       setLists((oldList) => [...oldList, newList]);
       setListTitle("");
       e.target.blur();
-    } else {
+      setNewList(false);
+    }
+  };
+
+  const addCard = (e) => {
+    if (cardTitle.length > 0) {
+      lists[currList]["items"] = [...lists[currList]["items"], cardTitle];
+      setCardTitle("");
+      setCurrList(null);
+      e.target.blur();
+      setNewCard(false);
+      setTimeout(function () {
+        var objDiv = document.getElementById(`list-scroll ${currList}`);
+        objDiv.lastElementChild.scrollIntoView({
+          behavior: "smooth",
+          alignToTop: false,
+        });
+      }, 75);
     }
   };
 
   return (
     <div className="list-space">
-      {lists.map((list, gIndex) => {
+      {lists.map((list, lIndex) => {
         return (
           <div
-            key={gIndex}
+            key={lIndex}
             className="list"
             onDragEnter={
               dragging && !list.items.length
-                ? (e) => handleDragEnter(e, { gIndex, iIndex: 0 })
+                ? (e) => handleDragEnter(e, { lIndex, iIndex: 0 })
                 : null
             }
           >
@@ -104,24 +124,24 @@ function Kanban() {
                 <FontAwesomeIcon icon={solid("ellipsis")} size="xl" />
               </button>
             </div>
-            <div className="list-scroll">
+            <div className="list-scroll" id={`list-scroll ${lIndex}`}>
               {list.items.map((item, iIndex) => {
                 return (
                   <div
                     draggable
                     onDragStart={(e) => {
-                      handleDragStart(e, { gIndex, iIndex });
+                      handleDragStart(e, { lIndex, iIndex });
                     }}
                     onDragEnter={
                       dragging
                         ? (e) => {
-                            handleDragEnter(e, { gIndex, iIndex });
+                            handleDragEnter(e, { lIndex, iIndex });
                           }
                         : null
                     }
                     key={iIndex}
                     className={
-                      dragging ? getStyles({ gIndex, iIndex }) : "list-item"
+                      dragging ? getStyles({ lIndex, iIndex }) : "list-item"
                     }
                   >
                     {item}
@@ -129,18 +149,75 @@ function Kanban() {
                 );
               })}
             </div>
-            <button className="row add-card">
-              <FontAwesomeIcon icon={solid("plus")} size="xl" />
-              <h6 className="add-text">Add a card</h6>
-            </button>
+
+            {/* Add card button */}
+            {newCard && currList == lIndex ? (
+              <div className="column add-list">
+                <textarea
+                  type={"text"}
+                  className="add-input input-card"
+                  value={cardTitle}
+                  onChange={(e) => setCardTitle(e.target.value)}
+                  placeholder="Enter a title for this card..."
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      addCard(e);
+                    }
+                  }}
+                />
+                <div className="row add-buttons">
+                  <h6
+                    className="add-text add-button"
+                    onClick={(e) => addCard(e)}
+                  >
+                    Add card
+                  </h6>
+                  <FontAwesomeIcon
+                    icon={solid("xmark")}
+                    size="2xl"
+                    className="add-cancel"
+                    onClick={() => {
+                      setCurrList(null);
+                      setCardTitle("");
+                      setNewCard(false);
+                    }}
+                  />
+                </div>
+              </div>
+            ) : (
+              <button
+                className="row add-card"
+                onClick={() => {
+                  setCurrList(lIndex);
+                  setNewCard(true);
+                  {
+                    lists[lIndex]["items"].length > 0 &&
+                      setTimeout(function () {
+                        var objDiv = document.getElementById(
+                          `list-scroll ${lIndex}`
+                        );
+                        objDiv.lastElementChild.scrollIntoView({
+                          behavior: "smooth",
+                          alignToTop: false,
+                        });
+                      }, 75);
+                  }
+                }}
+              >
+                <FontAwesomeIcon icon={solid("plus")} size="xl" />
+                <h6 className="add-text">Add a card</h6>
+              </button>
+            )}
           </div>
         );
       })}
-      {toggleAddL ? (
+
+      {/* Add list button */}
+      {newList ? (
         <div className="column add-list">
           <input
             type={"text"}
-            className="add-input"
+            className="add-input input-title"
             value={listTitle}
             onChange={(e) => setListTitle(e.target.value)}
             placeholder="Enter list title..."
@@ -158,14 +235,17 @@ function Kanban() {
               icon={solid("xmark")}
               size="2xl"
               className="add-cancel"
-              onClick={() => setToggleAddL(false)}
+              onClick={() => {
+                setListTitle("");
+                setNewList(false);
+              }}
             />
           </div>
         </div>
       ) : (
         <button
           className="row add-list-button"
-          onClick={() => setToggleAddL(true)}
+          onClick={() => setNewList(true)}
         >
           <FontAwesomeIcon icon={solid("plus")} size="xl" />
           <h6 className="add-text">Add another list</h6>
