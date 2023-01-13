@@ -14,13 +14,22 @@ function Kanban() {
     {
       title: "To Do",
       items: [
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-        "testing 1 - 2 -3",
-        "Hello World!",
-        "Hello World!",
+        {
+          name: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+          description: "hans",
+        },
+        { name: "testing 1 - 2 -3", description: "nothing" },
+        { name: "Hello World!", description: "earthling" },
+        { name: "Hello World!", description: "worm" },
       ],
     },
-    { title: "Doing", items: ["TEXT", "Totally not Trello"] },
+    {
+      title: "Doing",
+      items: [
+        { name: "TEXT", description: "words" },
+        { name: "Totally not Trello", description: "it really isn't" },
+      ],
+    },
     { title: "Done", items: [] },
   ]);
   const [listTitle, setListTitle] = useState("");
@@ -28,6 +37,9 @@ function Kanban() {
   const [cardTitle, setCardTitle] = useState("");
   const [newCard, setNewCard] = useState(false);
   const [currList, setCurrList] = useState(null);
+  const [currListName, setCurrListName] = useState(null);
+  const [currCard, setCurrCard] = useState(null);
+  const [currCardIndex, setCurrCardIndex] = useState(null);
   const [dragging, setDragging] = useState(false);
   const dragItem = useRef();
   const dragNode = useRef();
@@ -93,7 +105,10 @@ function Kanban() {
 
   const addCard = () => {
     if (cardTitle.length > 0) {
-      lists[currList]["items"] = [...lists[currList]["items"], cardTitle];
+      lists[currList]["items"] = [
+        ...lists[currList]["items"],
+        { name: cardTitle, description: "" },
+      ];
       setCardTitle("");
       setTimeout(function () {
         var objDiv = document.getElementById(`list-scroll ${currList}`);
@@ -107,7 +122,15 @@ function Kanban() {
 
   return (
     <div className="list-space" id="list-space">
-      {/* <Card /> */}
+      {currCardIndex != null && (
+        <Card
+          close={setCurrCardIndex}
+          listName={currListName}
+          lsitIndex={currList}
+          data={currCard}
+          itemIndex={currCardIndex}
+        />
+      )}
       {lists.map((list, lIndex) => {
         return (
           <div
@@ -129,6 +152,16 @@ function Kanban() {
               {list.items.map((item, iIndex) => {
                 return (
                   <div
+                    key={iIndex}
+                    className={
+                      dragging ? getStyles({ lIndex, iIndex }) : "list-item"
+                    }
+                    onClick={() => {
+                      setCurrListName(list.title);
+                      setCurrList(lIndex);
+                      setCurrCard(list["items"][iIndex]);
+                      setCurrCardIndex(iIndex);
+                    }}
                     draggable
                     onDragStart={(e) => {
                       handleDragStart(e, { lIndex, iIndex });
@@ -140,12 +173,9 @@ function Kanban() {
                           }
                         : null
                     }
-                    key={iIndex}
-                    className={
-                      dragging ? getStyles({ lIndex, iIndex }) : "list-item"
-                    }
                   >
-                    <p>{item}</p>
+                    <p>{item.name}</p>
+                    <FontAwesomeIcon icon={solid("pen")} size="sm" />
                   </div>
                 );
               })}
@@ -172,16 +202,20 @@ function Kanban() {
                   <h4 className="add-button" onClick={(e) => addCard(e)}>
                     Add card
                   </h4>
-                  <FontAwesomeIcon
-                    icon={solid("xmark")}
-                    size="2xl"
+                  <button
                     className="add-cancel"
                     onClick={() => {
                       setCurrList(null);
                       setCardTitle("");
                       setNewCard(false);
                     }}
-                  />
+                  >
+                    <FontAwesomeIcon
+                      icon={solid("xmark")}
+                      size="2xl"
+                      className="add-cancel-button"
+                    />
+                  </button>
                 </div>
               </div>
             ) : (
@@ -214,7 +248,7 @@ function Kanban() {
 
       {/* Add list button */}
       {newList ? (
-        <div className="column add-list">
+        <div className="column add-list add-list-input">
           <input
             type={"text"}
             className="add-input input-title"
@@ -233,15 +267,19 @@ function Kanban() {
             <h4 className="add-button" onClick={(e) => addList(e)}>
               Add list
             </h4>
-            <FontAwesomeIcon
-              icon={solid("xmark")}
-              size="2xl"
+            <button
               className="add-cancel"
               onClick={() => {
                 setListTitle("");
                 setNewList(false);
               }}
-            />
+            >
+              <FontAwesomeIcon
+                icon={solid("xmark")}
+                size="2xl"
+                className="add-cancel-button"
+              />
+            </button>
           </div>
         </div>
       ) : (
