@@ -1,0 +1,28 @@
+.background {
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+}
+
+.scroll {
+  overflow-y: auto;
+  width: inherit;
+  display: flex;
+  /* align-items: center; */
+  justify-content: center;
+  /* overflow-x: hidden; */
+  height: inherit;
+}
+
+.card {
+  margin: 50px 0;
+  background-color: white;
+  height: 1500px;
+  width: 672px;
+  border-radius: 0.5rem;
+  z-index: 2;
+}

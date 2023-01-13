@@ -6,6 +6,7 @@ import {
   brands,
   icon,
 } from "@fortawesome/fontawesome-svg-core/import.macro";
+import Card from "./Card";
 import "./Kanban.css";
 
 function Kanban() {
@@ -75,7 +76,7 @@ function Kanban() {
     return "list-item";
   };
 
-  const addList = (e) => {
+  const addList = () => {
     if (listTitle.length > 0) {
       let newList = {
         title: listTitle,
@@ -83,18 +84,17 @@ function Kanban() {
       };
       setLists((oldList) => [...oldList, newList]);
       setListTitle("");
-      e.target.blur();
-      setNewList(false);
+      setTimeout(function () {
+        var objDiv = document.getElementById("list-space");
+        objDiv.scrollLeft = objDiv.scrollWidth;
+      }, 75);
     }
   };
 
-  const addCard = (e) => {
+  const addCard = () => {
     if (cardTitle.length > 0) {
       lists[currList]["items"] = [...lists[currList]["items"], cardTitle];
       setCardTitle("");
-      setCurrList(null);
-      e.target.blur();
-      setNewCard(false);
       setTimeout(function () {
         var objDiv = document.getElementById(`list-scroll ${currList}`);
         objDiv.lastElementChild.scrollIntoView({
@@ -106,7 +106,8 @@ function Kanban() {
   };
 
   return (
-    <div className="list-space">
+    <div className="list-space" id="list-space">
+      {/* <Card /> */}
       {lists.map((list, lIndex) => {
         return (
           <div
@@ -119,7 +120,7 @@ function Kanban() {
             }
           >
             <div className="list-title">
-              <h6 className="list-text">{list.title}</h6>
+              <h3>{list.title}</h3>
               <button className="list-options">
                 <FontAwesomeIcon icon={solid("ellipsis")} size="xl" />
               </button>
@@ -144,7 +145,7 @@ function Kanban() {
                       dragging ? getStyles({ lIndex, iIndex }) : "list-item"
                     }
                   >
-                    {item}
+                    <p>{item}</p>
                   </div>
                 );
               })}
@@ -157,21 +158,20 @@ function Kanban() {
                   type={"text"}
                   className="add-input input-card"
                   value={cardTitle}
-                  onChange={(e) => setCardTitle(e.target.value)}
+                  onChange={(e) =>
+                    setCardTitle(e.target.value.replace(/[\r\n\v]+/g, ""))
+                  }
                   placeholder="Enter a title for this card..."
                   onKeyDown={(e) => {
                     if (e.key === "Enter") {
-                      addCard(e);
+                      addCard();
                     }
                   }}
                 />
                 <div className="row add-buttons">
-                  <h6
-                    className="add-text add-button"
-                    onClick={(e) => addCard(e)}
-                  >
+                  <h4 className="add-button" onClick={(e) => addCard(e)}>
                     Add card
-                  </h6>
+                  </h4>
                   <FontAwesomeIcon
                     icon={solid("xmark")}
                     size="2xl"
@@ -205,7 +205,7 @@ function Kanban() {
                 }}
               >
                 <FontAwesomeIcon icon={solid("plus")} size="xl" />
-                <h6 className="add-text">Add a card</h6>
+                <h3>Add a card</h3>
               </button>
             )}
           </div>
@@ -219,18 +219,20 @@ function Kanban() {
             type={"text"}
             className="add-input input-title"
             value={listTitle}
-            onChange={(e) => setListTitle(e.target.value)}
+            onChange={(e) =>
+              setListTitle(e.target.value.replace(/[\r\n\v]+/g, ""))
+            }
             placeholder="Enter list title..."
             onKeyDown={(e) => {
               if (e.key === "Enter") {
-                addList(e);
+                addList();
               }
             }}
           />
           <div className="row add-buttons">
-            <h6 className="add-text add-button" onClick={(e) => addList(e)}>
+            <h4 className="add-button" onClick={(e) => addList(e)}>
               Add list
-            </h6>
+            </h4>
             <FontAwesomeIcon
               icon={solid("xmark")}
               size="2xl"
@@ -248,7 +250,7 @@ function Kanban() {
           onClick={() => setNewList(true)}
         >
           <FontAwesomeIcon icon={solid("plus")} size="xl" />
-          <h6 className="add-text">Add another list</h6>
+          <h3>Add another list</h3>
         </button>
       )}
     </div>

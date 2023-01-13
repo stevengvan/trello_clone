@@ -6,6 +6,7 @@
   align-items: start;
   overflow-x: auto;
   overflow-y: hidden;
+  scroll-behavior: smooth;
 }
 
 .list {
@@ -26,9 +27,7 @@
   max-height: 50px;
   margin-bottom: 0.5rem;
 }
-.list-text {
-  font-size: 1.5rem;
-}
+
 .list-options {
   padding: 0.25rem;
   border-radius: 2.5px;
@@ -48,7 +47,6 @@
 }
 
 .list-item {
-  font-size: 1.2rem;
   background-color: white;
   color: #282c34;
   font-weight: bold;
@@ -103,10 +101,6 @@
   margin-left: 10px;
 }
 
-.add-text {
-  font-size: 1.5rem;
-}
-
 .add-list {
   max-width: 300px;
   min-width: 300px;
@@ -125,16 +119,17 @@
   border-style: none;
 }
 .input-title {
-  font-size: x-large;
+  font-size: large;
 }
 .input-card {
   font-size: large;
   height: 60px;
   text-align: left;
+  resize: none;
 }
 
 .add-buttons {
-  margin: 10px 0.5rem;
+  margin: 10px 0;
   align-items: center;
 }
 
