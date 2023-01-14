@@ -10,13 +10,18 @@ function Card({ close, listName, listIndex, data, itemIndex }) {
   const [description, setDescription] = useState(data.description);
   const [newDesc, setNewDesc] = useState(description);
   const [editDesc, setEditDesc] = useState(false);
+  const [descHeight, setDescHeight] = useState(null);
 
   function OnInput() {
     this.style.height = 0;
     this.style.height = this.scrollHeight + "px";
   }
 
-  function resizeTextAreas() {
+  function resizeTextAreas(cancel) {
+    if (cancel === true) {
+      const txDesc = document.getElementById("description");
+      txDesc.setAttribute("style", "height:" + descHeight);
+    }
     const tx = document.getElementsByTagName("textarea");
     for (let i = 0; i < tx.length; i++) {
       tx[i].setAttribute(
@@ -29,6 +34,9 @@ function Card({ close, listName, listIndex, data, itemIndex }) {
 
   useEffect(() => {
     resizeTextAreas();
+    const txDesc = document.getElementById("description");
+    setDescHeight(txDesc.style.height);
+    console.log(descHeight);
   }, [editTitle, editDesc]);
 
   const changeTitle = (e) => {
@@ -45,9 +53,9 @@ function Card({ close, listName, listIndex, data, itemIndex }) {
 
   const changeDesc = (e) => {
     if (newDesc.length > 0) {
-      setTitle(newTitle);
+      setDescription(newDesc);
     } else {
-      setNewTitle(title);
+      setNewDesc(description);
     }
     e.target.blur();
     setEditDesc(false);
@@ -104,6 +112,7 @@ function Card({ close, listName, listIndex, data, itemIndex }) {
             <div className="descCon">
               <h4>Description</h4>
               <textarea
+                id="description"
                 className={editDesc ? "description-edit" : "description"}
                 value={newDesc}
                 placeholder="Add a more detailed description…"
@@ -129,7 +138,7 @@ function Card({ close, listName, listIndex, data, itemIndex }) {
                       setEditDesc(false);
                       setNewDesc(description);
                       setTimeout(function () {
-                        resizeTextAreas();
+                        resizeTextAreas(true);
                       }, 100);
                     }}
                   >
