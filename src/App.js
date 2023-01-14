@@ -21,7 +21,7 @@ function App() {
       <div className="board-title">
         <input
           className="board-text"
-          value={title === placeholder ? title : placeholder}
+          value={placeholder}
           onChange={(e) => setPlaceholder(e.target.value)}
           onKeyDown={(e) => {
             if (e.key === "Enter") {

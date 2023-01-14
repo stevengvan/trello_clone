@@ -3,7 +3,7 @@
   gap: 0.5rem;
   height: 90vh;
   display: flex;
-  align-items: start;
+  align-items: flex-start;
   overflow-x: auto;
   overflow-y: hidden;
   scroll-behavior: smooth;

@@ -61,7 +61,7 @@ p {
   font-size: calc(10px + 2vmin);
   background-color: transparent;
   border-style: none;
-  padding: 0.5rem;
+  padding: 0.5rem 5px;
 }
 .board-text:hover {
   background-color: rgba(19, 20, 24, 0.5);

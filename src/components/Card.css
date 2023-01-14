@@ -1,3 +1,10 @@
+.container {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
 .background {
   background-color: rgba(0, 0, 0, 0.5);
   position: absolute;
@@ -18,7 +25,8 @@
 
 .card {
   padding: 1.75rem;
-  margin: 50px 0;
+  margin-top: 50px;
+  margin-bottom: 50px;
   background-color: white;
   height: 1500px;
   width: 672px;
@@ -51,6 +59,35 @@
 .cardName {
   padding-right: 1rem;
   margin-bottom: 50px;
+  width: 100%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.name-text {
+  font-size: large;
+  padding: 0.5rem;
+  border: none;
+  outline: none;
+  font-weight: bold;
+  resize: none;
+  width: 100%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.name-edit {
+  font-size: large;
+  padding: 0.5rem;
+  border: none;
+  font-weight: bold;
+  width: 100%;
+  resize: none;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 .listName {
@@ -69,12 +106,14 @@
 }
 
 .description {
-  margin-top: 20px;
+  margin-top: 10px;
+  padding: 0.5rem;
+  border: 1px transparent solid;
+  border-radius: 2.5px;
+  outline: none;
+  font-weight: bold;
   resize: none;
   width: 100%;
-  border: none;
-  border-radius: 5px;
-  padding: 0.5rem;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -83,6 +122,50 @@
   background-color: rgb(177, 177, 177);
   cursor: pointer;
 }
-.description:focus {
-  background-color: white;
+
+.description-edit {
+  margin-top: 10px;
+  padding: 0.5rem;
+  border: 1px solid black;
+  border-radius: 2.5px;
+  outline: none;
+  font-weight: bold;
+  width: 100%;
+  resize: none;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.desc-buttons {
+  margin-top: 10px;
+}
+.desc-buttons *:first-child {
+  margin-right: 10px;
+}
+
+.btn {
+  border: none;
+  cursor: pointer;
+  transition-duration: 250ms;
+}
+
+.save {
+  color: white;
+  background-color: rgb(45, 108, 243);
+  border-radius: 5px;
+  padding: 0.5rem;
+  margin-right: 20px;
+}
+.save:hover {
+  background-color: rgb(31, 74, 167);
+}
+
+.cancel {
+  background-color: transparent;
+  padding: 0.5rem;
+  border-radius: 5px;
+}
+.cancel:hover {
+  background-color: rgba(163, 163, 163, 0.5);
 }
