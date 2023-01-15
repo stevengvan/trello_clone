@@ -121,15 +121,28 @@ function Kanban() {
     }
   };
 
+  const changeCardData = (listIndex, itemIndex, changeData) => {
+    let newLists = [...lists];
+    newLists[listIndex]["items"][itemIndex] = changeData;
+    setLists(newLists);
+  };
+
+  const deleteCard = (listIndex, itemIndex) => {
+    let newLists = [...lists];
+    newLists[listIndex]["items"].splice(itemIndex, 1);
+    setLists(newLists);
+  };
+
   return (
     <div className="list-space" id="list-space">
       {currCardIndex != null && (
         <Card
           close={setCurrCardIndex}
           listName={currListName}
-          lsitIndex={currList}
-          data={currCard}
+          listIndex={currList}
           itemIndex={currCardIndex}
+          data={currCard}
+          actions={{ change: changeCardData, delete: deleteCard }}
         />
       )}
       {lists.map((list, lIndex) => {
@@ -175,8 +188,7 @@ function Kanban() {
                         : null
                     }
                   >
-                    <p>{item.name}</p>
-                    <FontAwesomeIcon icon={solid("pen")} size="sm" />
+                    {item.name}
                   </div>
                 );
               })}

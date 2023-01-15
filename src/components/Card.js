@@ -3,14 +3,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import "./Card.css";
 
-function Card({ close, listName, listIndex, data, itemIndex }) {
+function Card({ close, listName, listIndex, itemIndex, data, actions }) {
   const [title, setTitle] = useState(data.name);
-  const [newTitle, setNewTitle] = useState(title);
+  const [newTitle, setNewTitle] = useState(data.name);
   const [editTitle, setEditTitle] = useState(false);
   const [description, setDescription] = useState(data.description);
-  const [newDesc, setNewDesc] = useState(description);
+  const [newDesc, setNewDesc] = useState(data.description);
   const [editDesc, setEditDesc] = useState(false);
   const [descHeight, setDescHeight] = useState(null);
+  const [togDelete, setTogDelete] = useState(false);
 
   function OnInput() {
     this.style.height = 0;
@@ -42,6 +43,10 @@ function Card({ close, listName, listIndex, data, itemIndex }) {
   const changeTitle = (e) => {
     if (newTitle.length > 0) {
       setTitle(newTitle);
+      actions["change"](listIndex, itemIndex, {
+        name: newTitle,
+        description: newDesc,
+      });
     } else {
       setNewTitle(title);
     }
@@ -54,6 +59,10 @@ function Card({ close, listName, listIndex, data, itemIndex }) {
   const changeDesc = (e) => {
     if (newDesc.length > 0) {
       setDescription(newDesc);
+      actions["change"](listIndex, itemIndex, {
+        name: newTitle,
+        description: newDesc,
+      });
     } else {
       setNewDesc(description);
     }
@@ -78,7 +87,7 @@ function Card({ close, listName, listIndex, data, itemIndex }) {
           </button>
 
           {/* Title */}
-          <div className="row ">
+          <div className="row">
             <FontAwesomeIcon icon={solid("credit-card")} className="icon" />
             <div className="cardName">
               <textarea
@@ -88,11 +97,7 @@ function Card({ close, listName, listIndex, data, itemIndex }) {
                 onChange={(e) =>
                   setNewTitle(e.target.value.replace(/[\r\n\v]+/g, ""))
                 }
-                onBlur={(e) => {
-                  if (e.target.value.length === 0) {
-                    changeTitle(e);
-                  }
-                }}
+                onBlur={(e) => changeTitle(e)}
                 onKeyDown={(e) => {
                   if (e.key === "Enter") {
                     changeTitle(e);
@@ -146,6 +151,52 @@ function Card({ close, listName, listIndex, data, itemIndex }) {
                   </button>
                 </div>
               )}
+            </div>
+            <div className="actionsCon">
+              <h5 className="action-header">Add to card</h5>
+              <div className="actions-menu">
+                <button className="row action-button">
+                  <FontAwesomeIcon icon={solid("arrow-right")} />
+                  Move
+                </button>
+                <button className="row action-button">
+                  <FontAwesomeIcon icon={solid("copy")} />
+                  Copy
+                </button>
+                <div className="dropdownCon">
+                  <button
+                    className="row action-button"
+                    onClick={() => setTogDelete(true)}
+                  >
+                    <FontAwesomeIcon icon={solid("trash")} />
+                    Delete
+                  </button>
+                  {togDelete && (
+                    <div className="column dropdown">
+                      <div className="row dropdown-title">
+                        <h5>Delete card?</h5>
+                        <button onClick={() => setTogDelete(false)}>
+                          <FontAwesomeIcon icon={solid("xmark")} size="lg" />
+                        </button>
+                      </div>
+                      <hr />
+                      <p>
+                        All actions will be removed from the activity feed and
+                        you won’t be able to re-open the card. There is no undo.
+                      </p>
+                      <button
+                        className="delete-button"
+                        onClick={() => {
+                          actions["delete"](listIndex, itemIndex);
+                          close(null);
+                        }}
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  )}
+                </div>
+              </div>
             </div>
           </div>
         </div>
