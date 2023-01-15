@@ -36,6 +36,7 @@ function Kanban() {
   const [listTitle, setListTitle] = useState("");
   const [newList, setNewList] = useState(false);
   const [cardTitle, setCardTitle] = useState("");
+  const [listMenu, setListMenu] = useState(false);
   const [newCard, setNewCard] = useState(false);
   const [currList, setCurrList] = useState(null);
   const [currListName, setCurrListName] = useState(null);
@@ -104,6 +105,14 @@ function Kanban() {
     }
   };
 
+  const deleteList = (listIndex) => {
+    let newLists = [...lists];
+    newLists.splice(listIndex, 1);
+    setCurrList(null);
+    setListMenu(false);
+    setLists(newLists);
+  };
+
   const addCard = () => {
     if (cardTitle.length > 0) {
       lists[currList]["items"] = [
@@ -158,9 +167,45 @@ function Kanban() {
           >
             <div className="list-title">
               <h3>{list.title}</h3>
-              <button className="list-options">
-                <FontAwesomeIcon icon={solid("ellipsis")} size="xl" />
-              </button>
+              <div className="list-optionsCon">
+                <button
+                  className="list-options"
+                  onClick={() => {
+                    setListMenu(true);
+                    setCurrList(lIndex);
+                  }}
+                >
+                  <FontAwesomeIcon icon={solid("ellipsis")} size="xl" />
+                </button>
+                {listMenu && lIndex === currList && (
+                  <div className="list-menu">
+                    <div className="list-menu-header">
+                      <div className="row">
+                        <h5>List actions</h5>
+                        <button
+                          onClick={() => {
+                            setCurrList(null);
+                            setListMenu(false);
+                          }}
+                        >
+                          <FontAwesomeIcon icon={solid("xmark")} size="lg" />
+                        </button>
+                      </div>
+                      <hr />
+                    </div>
+                    <button className="list-button">Add card</button>
+                    <button className="list-button">Move list</button>
+                    <button className="list-button">Copy list</button>
+                    <button className="list-button">Sort list by...</button>
+                    <button
+                      className="list-button"
+                      onClick={() => deleteList(lIndex)}
+                    >
+                      Delete list
+                    </button>
+                  </div>
+                )}
+              </div>
             </div>
             <div className="list-scroll" id={`list-scroll ${lIndex}`}>
               {list.items.map((item, iIndex) => {
