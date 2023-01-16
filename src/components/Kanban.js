@@ -16,19 +16,36 @@ function Kanban() {
       items: [
         {
           name: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+          date: "1/15/2023, 5:55:52 PM",
           description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
         },
-        { name: "testing 1 - 2 -3", description: "nothing" },
-        { name: "Hello World!", description: "earthling" },
-        { name: "Hello World!", description: "worm" },
+        {
+          name: "testing 1 - 2 -3",
+          date: "1/15/2023, 5:55:52 PM",
+          description: "nothing",
+        },
+        {
+          name: "Hello World!",
+          date: "1/14/2023, 7:45:52 AM",
+          description: "earthling",
+        },
+        {
+          name: "Hello World!",
+          date: "1/14/2023, 7:55:52 AM",
+          description: "worm",
+        },
       ],
     },
     {
       title: "Doing",
       items: [
-        { name: "TEXT", description: "words" },
-        { name: "Totally not Trello", description: "it really isn't" },
+        { name: "TEXT", date: "1/14/2023, 9:55:52 PM", description: "words" },
+        {
+          name: "Totally not Trello",
+          date: "1/15/2023, 5:55:52 PM",
+          description: "it really isn't",
+        },
       ],
     },
     { title: "Done", items: [] },
@@ -37,6 +54,7 @@ function Kanban() {
   const [newList, setNewList] = useState(false);
   const [cardTitle, setCardTitle] = useState("");
   const [listMenu, setListMenu] = useState(false);
+  const [listSortMenu, setListSortMenu] = useState(false);
   const [newCard, setNewCard] = useState(false);
   const [currList, setCurrList] = useState(null);
   const [currListName, setCurrListName] = useState(null);
@@ -113,11 +131,22 @@ function Kanban() {
     setLists(newLists);
   };
 
+  const sortList = (listIndex, order) => {
+    var date = new Date();
+    console.log(date.toLocaleString());
+    // let newLists = [...lists];
+    // newLists.splice(listIndex, 1);
+    // setCurrList(null);
+    // setListMenu(false);
+    // setLists(newLists);
+  };
+
   const addCard = () => {
     if (cardTitle.length > 0) {
+      let date = new Date();
       lists[currList]["items"] = [
         ...lists[currList]["items"],
-        { name: cardTitle, description: "" },
+        { name: cardTitle, date: date.toLocaleString(), description: "" },
       ];
       setCardTitle("");
       setTimeout(function () {
@@ -181,10 +210,22 @@ function Kanban() {
                   <div className="list-menu">
                     <div className="list-menu-header">
                       <div className="row">
-                        <h5>List actions</h5>
                         <button
+                          className={listSortMenu ? "show" : "hide"}
+                          disabled={!listSortMenu ? true : false}
+                          onClick={() => setListSortMenu(false)}
+                        >
+                          <FontAwesomeIcon
+                            icon={solid("arrow-left")}
+                            size="lg"
+                          />
+                        </button>
+                        <h5>{listSortMenu ? "Sort list" : "List actions"}</h5>
+                        <button
+                          className="list-menu-close"
                           onClick={() => {
                             setCurrList(null);
+                            setListSortMenu(false);
                             setListMenu(false);
                           }}
                         >
@@ -193,16 +234,45 @@ function Kanban() {
                       </div>
                       <hr />
                     </div>
-                    <button className="list-button">Add card</button>
-                    <button className="list-button">Move list</button>
-                    <button className="list-button">Copy list</button>
-                    <button className="list-button">Sort list by...</button>
-                    <button
-                      className="list-button"
-                      onClick={() => deleteList(lIndex)}
-                    >
-                      Delete list
-                    </button>
+                    {!listSortMenu && (
+                      <div>
+                        <button className="list-button">Add card</button>
+                        <button className="list-button">Move list</button>
+                        <button className="list-button">Copy list</button>
+                        <button
+                          className="list-button"
+                          onClick={() => setListSortMenu(true)}
+                        >
+                          Sort list by...
+                        </button>
+                        <button
+                          className="list-button"
+                          onClick={() => deleteList(lIndex)}
+                        >
+                          Delete list
+                        </button>
+                      </div>
+                    )}
+                    {listSortMenu && (
+                      <div>
+                        <button
+                          className="list-button"
+                          onClick={() => sortList(lIndex, "newest")}
+                        >{`Date created (newest first)`}</button>
+                        <button
+                          className="list-button"
+                          onClick={() => sortList(lIndex, "oldest")}
+                        >{`Date created (oldest first)`}</button>
+                        <button
+                          className="list-button"
+                          onClick={() => sortList(lIndex, "alphabetical(desc)")}
+                        >{`Card name (alphabetical)`}</button>
+                        <button
+                          className="list-button"
+                          onClick={() => sortList(lIndex, "alphabetical(asc)")}
+                        >{`Card name (alphabetical)`}</button>
+                      </div>
+                    )}
                   </div>
                 )}
               </div>

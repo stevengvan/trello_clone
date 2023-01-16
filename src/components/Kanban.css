@@ -65,17 +65,24 @@
 .list-menu-header .row {
   position: relative;
   width: 100%;
-  justify-content: center;
+  justify-content: space-between;
   margin-bottom: 5px;
 }
-.list-menu-header .row *:last-child {
+.list-menu-header .row button {
   color: #424242;
+  background-color: transparent;
   border: none;
-  position: absolute;
-  right: 0;
-  top: 0;
 }
-.list-menu-header .row *:last-child:hover * {
+.list-menu-header .row .hide {
+  opacity: 0;
+}
+.list-menu-header .row .show {
+  opacity: 1;
+}
+.list-menu-header .row .show:hover {
+  cursor: pointer;
+}
+.list-menu-close:hover {
   cursor: pointer;
   color: rgb(20, 20, 20);
 }
