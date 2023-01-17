@@ -13,7 +13,7 @@
   max-width: 300px;
   min-width: 300px;
   max-height: 90%;
-  background-color: #484f5e;
+  background-color: #678fc2;
   border-radius: 5px;
   padding: 0.5rem;
   display: flex;
@@ -35,7 +35,7 @@
   background-color: transparent;
 }
 .list-options:hover {
-  background-color: rgba(26, 29, 34, 0.5);
+  background-color: rgba(0, 0, 0, 0.25);
   transition-duration: 250ms;
   cursor: pointer;
 }
@@ -138,12 +138,12 @@
 }
 
 .current {
-  background-color: #282c34;
+  background-color: #416ea7;
 }
 
 .add-card {
   margin-top: 0.5rem;
-  background-color: #484f5e;
+  background-color: rgba(0, 0, 0, 0.25);
   border-radius: 5px;
   align-items: center;
   padding: 0.5rem;
@@ -151,7 +151,7 @@
   width: 100%;
 }
 .add-card:hover {
-  background-color: rgba(26, 29, 34, 0.5);
+  background-color: rgba(0, 0, 0, 0.5);
   cursor: pointer;
   transition-duration: 250ms;
 }
@@ -162,14 +162,14 @@
 .add-list-button {
   max-width: 300px;
   min-width: 300px;
-  background-color: rgba(72, 79, 94, 0.5);
+  background-color: rgba(0, 0, 0, 0.15);
   border-radius: 5px;
   padding: 0.5rem;
   align-items: center;
   border: none;
 }
 .add-list-button:hover {
-  background-color: rgba(26, 29, 34, 0.5);
+  background-color: rgba(0, 0, 0, 0.3);
   cursor: pointer;
   transition-duration: 250ms;
 }
@@ -180,7 +180,7 @@
 .add-list {
   max-width: 300px;
   min-width: 300px;
-  background-color: rgba(72, 79, 94, 0.5);
+  background-color: #678fc2;
   border-radius: 5px;
 }
 

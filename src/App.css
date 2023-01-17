@@ -40,7 +40,7 @@ p {
 }
 
 .App {
-  background-color: #282c34;
+  background-color: #275b9d;
   min-width: 100vw;
   max-height: 100vh;
 }
@@ -60,7 +60,7 @@ p {
   padding: 0.5rem 5px;
 }
 .board-text:hover {
-  background-color: rgba(19, 20, 24, 0.5);
+  background-color: rgba(0, 0, 0, 0.25);
   transition-duration: 250ms;
   cursor: pointer;
 }
