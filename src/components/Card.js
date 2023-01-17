@@ -135,6 +135,8 @@ function Card({ close, listName, listIndex, itemIndex, data, actions }) {
             <h5 className="listName">
               in list <span>{listName}</span>
             </h5>
+
+            <h6 className="createdDate">Created on {data.date}</h6>
           </div>
         </div>
 

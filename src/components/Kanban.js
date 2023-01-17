@@ -132,13 +132,37 @@ function Kanban() {
   };
 
   const sortList = (listIndex, order) => {
-    var date = new Date();
-    console.log(date.toLocaleString());
-    // let newLists = [...lists];
-    // newLists.splice(listIndex, 1);
-    // setCurrList(null);
-    // setListMenu(false);
-    // setLists(newLists);
+    let newLists = [...lists];
+    switch (order) {
+      case "newest":
+        newLists[listIndex]["items"].sort(function (a, b) {
+          return new Date(b.date) - new Date(a.date);
+        });
+        break;
+      case "oldest":
+        newLists[listIndex]["items"].sort(function (a, b) {
+          return new Date(a.date) - new Date(b.date);
+        });
+        break;
+      case "alphabetical(desc)":
+        newLists[listIndex]["items"].sort(function (a, b) {
+          return b.name.localeCompare(a.name);
+        });
+        break;
+      case "alphabetical(asc)":
+        newLists[listIndex]["items"].sort(function (a, b) {
+          return a.name.localeCompare(b.name);
+        });
+        break;
+      default:
+        newLists[listIndex]["items"].sort(function (a, b) {
+          return new Date(b.date) - new Date(a.date);
+        });
+    }
+    setCurrList(null);
+    setListSortMenu(false);
+    setListMenu(false);
+    setLists(newLists);
   };
 
   const addCard = () => {
@@ -258,19 +282,19 @@ function Kanban() {
                         <button
                           className="list-button"
                           onClick={() => sortList(lIndex, "newest")}
-                        >{`Date created (newest first)`}</button>
+                        >{`Date created (newest)`}</button>
                         <button
                           className="list-button"
                           onClick={() => sortList(lIndex, "oldest")}
-                        >{`Date created (oldest first)`}</button>
+                        >{`Date created (oldest)`}</button>
                         <button
                           className="list-button"
                           onClick={() => sortList(lIndex, "alphabetical(desc)")}
-                        >{`Card name (alphabetical)`}</button>
+                        >{`Card name (descending)`}</button>
                         <button
                           className="list-button"
                           onClick={() => sortList(lIndex, "alphabetical(asc)")}
-                        >{`Card name (alphabetical)`}</button>
+                        >{`Card name (ascending)`}</button>
                       </div>
                     )}
                   </div>

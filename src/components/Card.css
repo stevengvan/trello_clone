@@ -83,6 +83,11 @@
   cursor: pointer;
 }
 
+.createdDate {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
 .descCon {
   padding-right: 1rem;
   width: 100%;
