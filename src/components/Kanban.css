@@ -29,6 +29,7 @@
 }
 
 .list-options {
+  color: black;
   padding: 0.25rem;
   border-radius: 2.5px;
   border: none;
@@ -42,68 +43,6 @@
 
 .list-optionsCon {
   position: relative;
-}
-
-.list-menu {
-  background-color: white;
-  border-radius: 5px;
-  border: 1px #979797 solid;
-  width: 200px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: absolute;
-  z-index: 1;
-}
-.list-menu-header {
-  padding: 0.5rem;
-  width: 100%;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-.list-menu-header .row {
-  position: relative;
-  width: 100%;
-  justify-content: space-between;
-  margin-bottom: 5px;
-}
-.list-menu-header .row button {
-  color: #424242;
-  background-color: transparent;
-  border: none;
-}
-.list-menu-header .row .hide {
-  opacity: 0;
-}
-.list-menu-header .row .show {
-  opacity: 1;
-}
-.list-menu-header .row .show:hover {
-  cursor: pointer;
-}
-.list-menu-close:hover {
-  cursor: pointer;
-  color: rgb(20, 20, 20);
-}
-.list-menu-header .hr {
-  width: 100%;
-}
-.list-button {
-  background-color: transparent;
-  padding: 0.5rem;
-  height: 35px;
-  width: 100%;
-  border: none;
-  text-align: left;
-}
-.list-button:hover {
-  background-color: #adadad;
-  transition-duration: 250ms;
-  cursor: pointer;
-}
-.list-button:last-of-type {
-  margin-bottom: 10px;
 }
 
 .list-scroll {
@@ -143,6 +82,7 @@
 
 .add-card {
   margin-top: 0.5rem;
+  color: black;
   background-color: rgba(0, 0, 0, 0.25);
   border-radius: 5px;
   align-items: center;
@@ -160,6 +100,7 @@
 }
 
 .add-list-button {
+  color: black;
   max-width: 300px;
   min-width: 300px;
   background-color: rgba(0, 0, 0, 0.15);

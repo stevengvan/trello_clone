@@ -7,6 +7,7 @@ import {
   icon,
 } from "@fortawesome/fontawesome-svg-core/import.macro";
 import Card from "./Card";
+import Dropdown from "./DropdownList";
 import "./Kanban.css";
 
 function Kanban() {
@@ -54,7 +55,6 @@ function Kanban() {
   const [newList, setNewList] = useState(false);
   const [cardTitle, setCardTitle] = useState("");
   const [listMenu, setListMenu] = useState(false);
-  const [listSortMenu, setListSortMenu] = useState(false);
   const [newCard, setNewCard] = useState(false);
   const [currList, setCurrList] = useState(null);
   const [currListName, setCurrListName] = useState(null);
@@ -123,10 +123,20 @@ function Kanban() {
     }
   };
 
+  const moveList = (targetIndex, destinationIndex) => {
+    if (targetIndex === destinationIndex) {
+      return;
+    }
+    setLists((oldList) => {
+      let newList = JSON.parse(JSON.stringify(oldList));
+      newList.splice(destinationIndex, 0, newList.splice(targetIndex, 1)[0]);
+      return newList;
+    });
+  };
+
   const deleteList = (listIndex) => {
     let newLists = [...lists];
     newLists.splice(listIndex, 1);
-    setCurrList(null);
     setListMenu(false);
     setLists(newLists);
   };
@@ -159,8 +169,6 @@ function Kanban() {
           return new Date(b.date) - new Date(a.date);
         });
     }
-    setCurrList(null);
-    setListSortMenu(false);
     setListMenu(false);
     setLists(newLists);
   };
@@ -231,73 +239,16 @@ function Kanban() {
                   <FontAwesomeIcon icon={solid("ellipsis")} size="xl" />
                 </button>
                 {listMenu && lIndex === currList && (
-                  <div className="list-menu">
-                    <div className="list-menu-header">
-                      <div className="row">
-                        <button
-                          className={listSortMenu ? "show" : "hide"}
-                          disabled={!listSortMenu ? true : false}
-                          onClick={() => setListSortMenu(false)}
-                        >
-                          <FontAwesomeIcon
-                            icon={solid("arrow-left")}
-                            size="lg"
-                          />
-                        </button>
-                        <h5>{listSortMenu ? "Sort list" : "List actions"}</h5>
-                        <button
-                          className="list-menu-close"
-                          onClick={() => {
-                            setCurrList(null);
-                            setListSortMenu(false);
-                            setListMenu(false);
-                          }}
-                        >
-                          <FontAwesomeIcon icon={solid("xmark")} size="lg" />
-                        </button>
-                      </div>
-                      <hr />
-                    </div>
-                    {!listSortMenu && (
-                      <div>
-                        <button className="list-button">Add card</button>
-                        <button className="list-button">Move list</button>
-                        <button className="list-button">Copy list</button>
-                        <button
-                          className="list-button"
-                          onClick={() => setListSortMenu(true)}
-                        >
-                          Sort list by...
-                        </button>
-                        <button
-                          className="list-button"
-                          onClick={() => deleteList(lIndex)}
-                        >
-                          Delete list
-                        </button>
-                      </div>
-                    )}
-                    {listSortMenu && (
-                      <div>
-                        <button
-                          className="list-button"
-                          onClick={() => sortList(lIndex, "newest")}
-                        >{`Date created (newest)`}</button>
-                        <button
-                          className="list-button"
-                          onClick={() => sortList(lIndex, "oldest")}
-                        >{`Date created (oldest)`}</button>
-                        <button
-                          className="list-button"
-                          onClick={() => sortList(lIndex, "alphabetical(desc)")}
-                        >{`Card name (descending)`}</button>
-                        <button
-                          className="list-button"
-                          onClick={() => sortList(lIndex, "alphabetical(asc)")}
-                        >{`Card name (ascending)`}</button>
-                      </div>
-                    )}
-                  </div>
+                  <Dropdown
+                    lIndex={lIndex}
+                    setListMenu={setListMenu}
+                    actions={{
+                      delete: deleteList,
+                      sort: sortList,
+                      move: moveList,
+                    }}
+                    lists={lists}
+                  />
                 )}
               </div>
             </div>
@@ -357,7 +308,6 @@ function Kanban() {
                   <button
                     className="add-cancel"
                     onClick={() => {
-                      setCurrList(null);
                       setCardTitle("");
                       setNewCard(false);
                     }}
