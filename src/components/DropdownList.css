@@ -49,6 +49,7 @@
 }
 
 .list-button {
+  color: black;
   background-color: transparent;
   padding: 0.5rem;
   height: 35px;
@@ -71,6 +72,7 @@
 }
 
 .dropdown-select {
+  color: black;
   background-color: #416ea7;
   padding: 0.5rem;
   height: 35px;

@@ -21,6 +21,7 @@
 }
 
 .close {
+  color: black;
   width: 45px;
   height: 45px;
   border-radius: 50px;
@@ -170,6 +171,7 @@
 }
 
 .action-button {
+  color: black;
   width: 100%;
   border: none;
   background-color: rgb(197, 197, 197);
@@ -207,6 +209,7 @@
   margin-bottom: 5px;
 }
 .dropdown-title *:last-child {
+  color: black;
   background-color: none;
   border: none;
   position: absolute;

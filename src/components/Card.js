@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import "./Card.css";
@@ -13,60 +13,67 @@ function Card({ close, listName, listIndex, itemIndex, data, actions }) {
   const [descHeight, setDescHeight] = useState(null);
   const [togDelete, setTogDelete] = useState(false);
 
-  window.screen.orientation.onchange = function () {
-    const card = document.getElementById("card");
-    const tx = document.getElementsByTagName("textarea");
-
-    for (let i = 0; i < tx.length; i++) {
-      tx[i].setAttribute("style", "height: 30px; overflow-y:hidden;");
-
-      tx[i].addEventListener("input", OnInput, false);
-    }
-    card.setAttribute("style", "height: 800px; overflow-y:hidden;");
-    setTimeout(function () {
-      resizeTextAreas();
-    }, 300);
-  };
-
   function OnInput() {
     this.style.height = 0;
     this.style.height = this.scrollHeight + "px";
   }
 
-  function resizeTextAreas(cancel) {
-    // reset description height if cancelling edit
-    if (cancel === true) {
-      const txDesc = document.getElementById("description");
-      txDesc.setAttribute("style", "height:" + descHeight + "px");
-    }
-    const tx = document.getElementsByTagName("textarea");
-    for (let i = 0; i < tx.length; i++) {
-      tx[i].setAttribute(
-        "style",
-        "height:" + tx[i].scrollHeight + "px;overflow-y:hidden;"
+  const resizeTextAreas = useCallback(
+    (cancel) => {
+      // reset description height if cancelling edit
+      if (cancel === true) {
+        const txDesc = document.getElementById("description");
+        txDesc.setAttribute("style", "height:" + descHeight + "px");
+      }
+      const tx = document.getElementsByTagName("textarea");
+      for (let i = 0; i < tx.length; i++) {
+        tx[i].setAttribute(
+          "style",
+          "height:" + tx[i].scrollHeight + "px;overflow-y:hidden;"
+        );
+
+        tx[i].addEventListener("input", OnInput, false);
+      }
+
+      const card = document.getElementById("card");
+      const newTitleHeight = parseInt(
+        document.getElementById("title").style.height.slice(0, -2)
       );
+      const newDescHeight = parseInt(
+        document.getElementById("description").style.height.slice(0, -2)
+      );
+      card.setAttribute(
+        "style",
+        "height:" + (820 + newDescHeight - 493 + newTitleHeight - 150) + "px"
+      );
+    },
+    [descHeight]
+  );
 
-      tx[i].addEventListener("input", OnInput, false);
-    }
+  window.addEventListener(
+    "resize",
+    function () {
+      const card = document.getElementById("card");
+      const tx = document.getElementsByTagName("textarea");
 
-    const card = document.getElementById("card");
-    const newTitleHeight = parseInt(
-      document.getElementById("title").style.height.slice(0, -2)
-    );
-    const newDescHeight = parseInt(
-      document.getElementById("description").style.height.slice(0, -2)
-    );
-    card.setAttribute(
-      "style",
-      "height:" + (820 + newDescHeight - 493 + newTitleHeight - 150) + "px"
-    );
-  }
+      for (let i = 0; i < tx.length; i++) {
+        tx[i].setAttribute("style", "height: 30px; overflow-y:hidden;");
+
+        tx[i].addEventListener("input", OnInput, false);
+      }
+      card.setAttribute("style", "height: 800px; overflow-y:hidden;");
+      setTimeout(function () {
+        resizeTextAreas();
+      }, 300);
+    },
+    false
+  );
 
   useEffect(() => {
     resizeTextAreas();
     const txDesc = document.getElementById("description");
     setDescHeight(txDesc.style.height);
-  }, [editTitle, editDesc]);
+  }, [editTitle, editDesc, resizeTextAreas]);
 
   const changeTitle = (e) => {
     if (newTitle.length > 0) {
