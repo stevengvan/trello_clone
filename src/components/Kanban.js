@@ -127,10 +127,20 @@ function Kanban() {
     if (targetIndex === destinationIndex) {
       return;
     }
-    setLists((oldList) => {
-      let newList = JSON.parse(JSON.stringify(oldList));
-      newList.splice(destinationIndex, 0, newList.splice(targetIndex, 1)[0]);
-      return newList;
+    setLists((oldLists) => {
+      let newLists = JSON.parse(JSON.stringify(oldLists));
+      newLists.splice(destinationIndex, 0, newLists.splice(targetIndex, 1)[0]);
+      return newLists;
+    });
+  };
+
+  const copyList = (targetIndex, listTitle) => {
+    setLists((oldLists) => {
+      let newLists = JSON.parse(JSON.stringify(oldLists));
+      let copy = JSON.parse(JSON.stringify(newLists[targetIndex]));
+      copy.title = listTitle;
+      newLists.splice(targetIndex + 1, 0, copy);
+      return newLists;
     });
   };
 
@@ -243,9 +253,10 @@ function Kanban() {
                     lIndex={lIndex}
                     setListMenu={setListMenu}
                     actions={{
-                      delete: deleteList,
-                      sort: sortList,
                       move: moveList,
+                      copy: copyList,
+                      sort: sortList,
+                      delete: deleteList,
                     }}
                     lists={lists}
                   />

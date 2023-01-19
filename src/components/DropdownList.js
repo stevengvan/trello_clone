@@ -12,6 +12,7 @@ function Dropdown({ lIndex, setListMenu, actions, lists }) {
   const [showMenu, setShowMenu] = useState("");
   const [subMenu, setSubMenu] = useState("");
   const [destination, setDestination] = useState(0);
+  const [newTitle, setNewTitle] = useState("");
 
   return (
     <div className="list-menu">
@@ -47,7 +48,12 @@ function Dropdown({ lIndex, setListMenu, actions, lists }) {
           >
             Move list
           </button>
-          <button className="list-button">Copy list</button>
+          <button
+            className="list-button"
+            onClick={() => setShowMenu("Copy List")}
+          >
+            Copy list
+          </button>
           <button
             className="list-button"
             onClick={() => setShowMenu("Sort List")}
@@ -60,26 +66,6 @@ function Dropdown({ lIndex, setListMenu, actions, lists }) {
           >
             Delete list
           </button>
-        </div>
-      )}
-      {showMenu === "Sort List" && (
-        <div className="list-buttonsCon">
-          <button
-            className="list-button"
-            onClick={() => actions["sort"](lIndex, "newest")}
-          >{`Date created (newest)`}</button>
-          <button
-            className="list-button"
-            onClick={() => actions["sort"](lIndex, "oldest")}
-          >{`Date created (oldest)`}</button>
-          <button
-            className="list-button"
-            onClick={() => actions["sort"](lIndex, "alphabetical(desc)")}
-          >{`Card name (descending)`}</button>
-          <button
-            className="list-button"
-            onClick={() => actions["sort"](lIndex, "alphabetical(asc)")}
-          >{`Card name (ascending)`}</button>
         </div>
       )}
       {showMenu === "Move List" && (
@@ -130,6 +116,51 @@ function Dropdown({ lIndex, setListMenu, actions, lists }) {
           >
             Move
           </button>
+        </div>
+      )}
+      {showMenu === "Copy List" && (
+        <div className="list-buttonsCon">
+          <textarea
+            className="copy-input"
+            value={newTitle}
+            onChange={(e) => setNewTitle(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                actions["copy"](lIndex, newTitle);
+                setListMenu(false);
+              }
+            }}
+          />
+
+          <button
+            className="list-button"
+            onClick={() => {
+              actions["copy"](lIndex, newTitle);
+              setListMenu(false);
+            }}
+          >
+            Create list
+          </button>
+        </div>
+      )}
+      {showMenu === "Sort List" && (
+        <div className="list-buttonsCon">
+          <button
+            className="list-button"
+            onClick={() => actions["sort"](lIndex, "newest")}
+          >{`Date created (newest)`}</button>
+          <button
+            className="list-button"
+            onClick={() => actions["sort"](lIndex, "oldest")}
+          >{`Date created (oldest)`}</button>
+          <button
+            className="list-button"
+            onClick={() => actions["sort"](lIndex, "alphabetical(desc)")}
+          >{`Card name (descending)`}</button>
+          <button
+            className="list-button"
+            onClick={() => actions["sort"](lIndex, "alphabetical(asc)")}
+          >{`Card name (ascending)`}</button>
         </div>
       )}
     </div>
