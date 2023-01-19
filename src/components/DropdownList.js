@@ -15,7 +15,7 @@ function Dropdown({ lIndex, setListMenu, actions, lists }) {
   const [newTitle, setNewTitle] = useState("");
 
   return (
-    <div className="list-menu">
+    <div id="list-menu" className="list-menu">
       <div className="list-menu-header">
         <div className="row">
           <button
@@ -41,7 +41,15 @@ function Dropdown({ lIndex, setListMenu, actions, lists }) {
       </div>
       {showMenu === "" && (
         <div className="list-buttonsCon">
-          <button className="list-button">Add card</button>
+          <button
+            className="list-button"
+            onClick={() => {
+              actions["add"]("first");
+              setListMenu(false);
+            }}
+          >
+            Add card
+          </button>
           <button
             className="list-button"
             onClick={() => setShowMenu("Move List")}
