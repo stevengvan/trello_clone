@@ -229,6 +229,21 @@ function Kanban() {
     return newLists;
   };
 
+  const copyCard = (
+    targetList,
+    targetIndex,
+    destinationList,
+    destinationIndex,
+    data
+  ) => {
+    if (targetList === destinationList && targetIndex === destinationIndex) {
+      return;
+    }
+    let newLists = [...lists];
+    newLists[destinationList]["items"].splice(destinationIndex, 0, data);
+    return newLists;
+  };
+
   const changeCardData = (listIndex, itemIndex, changeData) => {
     let newLists = [...lists];
     newLists[listIndex]["items"][itemIndex] = changeData;
@@ -252,8 +267,9 @@ function Kanban() {
           lists={lists}
           data={currCard}
           actions={{
-            move: moveCard,
             change: changeCardData,
+            move: moveCard,
+            copy: copyCard,
             delete: deleteCard,
           }}
         />

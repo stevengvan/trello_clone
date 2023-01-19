@@ -12,7 +12,8 @@ function Card({ close, listName, listIndex, itemIndex, lists, data, actions }) {
   const [editDesc, setEditDesc] = useState(false);
   const [descHeight, setDescHeight] = useState(null);
   const [subMenu, setSubMenu] = useState("");
-  const [destination, setDestination] = useState(listIndex);
+  const [destinationList, setDestinationList] = useState(listIndex);
+  const [destinationPos, setDestinationPos] = useState(0);
   const [togMove, setTogMove] = useState(false);
   const [togCopy, setTogCopy] = useState(false);
   const [togDelete, setTogDelete] = useState(false);
@@ -221,26 +222,26 @@ function Card({ close, listName, listIndex, itemIndex, lists, data, actions }) {
                           className="list-button"
                           onClick={() => {
                             subMenu === ""
-                              ? setSubMenu("list")
+                              ? setSubMenu("move-list")
                               : setSubMenu("");
                           }}
                         >
                           List:
-                          {" " + lists[destination].title}
+                          {" " + lists[destinationList].title}
                         </button>
-                        {subMenu === "list" && (
+                        {subMenu === "move-list" && (
                           <div>
                             {lists.map((list, index) => {
                               return (
                                 <button
                                   key={index}
                                   className={
-                                    index === destination
+                                    index === destinationList
                                       ? "dropdown-select"
                                       : "list-button"
                                   }
                                   onClick={() => {
-                                    setDestination(index);
+                                    setDestinationList(index);
                                     setSubMenu("");
                                   }}
                                 >
@@ -258,7 +259,7 @@ function Card({ close, listName, listIndex, itemIndex, lists, data, actions }) {
                         actions["move"](
                           listIndex,
                           itemIndex,
-                          destination,
+                          destinationList,
                           data
                         );
                         close(null);
@@ -269,6 +270,7 @@ function Card({ close, listName, listIndex, itemIndex, lists, data, actions }) {
                   </div>
                 )}
               </div>
+
               <div className="dropdownCon">
                 <button
                   className="row action-button"
@@ -286,10 +288,98 @@ function Card({ close, listName, listIndex, itemIndex, lists, data, actions }) {
                       </button>
                     </div>
                     <hr />
+                    <div className="list-buttonsCon">
+                      <div
+                        className={subMenu === "copy-list" ? "dropdownSec" : ""}
+                      >
+                        <button
+                          className="list-button"
+                          onClick={() => {
+                            subMenu === ""
+                              ? setSubMenu("copy-list")
+                              : setSubMenu("");
+                          }}
+                        >
+                          List:
+                          {" " + lists[destinationList].title}
+                        </button>
+                        {subMenu === "copy-list" && (
+                          <div>
+                            {lists.map((list, index) => {
+                              return (
+                                <button
+                                  key={index}
+                                  className={
+                                    index === destinationList
+                                      ? "dropdown-select"
+                                      : "list-button"
+                                  }
+                                  onClick={() => {
+                                    setDestinationList(index);
+                                    setSubMenu("");
+                                  }}
+                                >
+                                  {list.title}
+                                </button>
+                              );
+                            })}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                    <div className="list-buttonsCon">
+                      <div
+                        className={
+                          subMenu === "copy-list-pos" ? "dropdownSec" : ""
+                        }
+                      >
+                        <button
+                          className="list-button"
+                          onClick={() => {
+                            subMenu === ""
+                              ? setSubMenu("copy-list-pos")
+                              : setSubMenu("");
+                          }}
+                        >
+                          Position:
+                          {" " + (destinationPos + 1)}
+                        </button>
+                        {subMenu === "copy-list-pos" &&
+                          lists &&
+                          lists[destinationList].items.length > 0 && (
+                            <div>
+                              {lists[destinationList].items.map((_, index) => {
+                                return (
+                                  <button
+                                    key={index}
+                                    className={
+                                      index === destinationPos
+                                        ? "dropdown-select"
+                                        : "list-button"
+                                    }
+                                    onClick={() => {
+                                      setDestinationPos(index);
+                                      setSubMenu("");
+                                    }}
+                                  >
+                                    {index + 1}
+                                  </button>
+                                );
+                              })}
+                            </div>
+                          )}
+                      </div>
+                    </div>
                     <button
                       className="confirm-button other-button"
                       onClick={() => {
-                        actions["move"](listIndex, destination);
+                        actions["copy"](
+                          listIndex,
+                          itemIndex,
+                          destinationList,
+                          destinationPos,
+                          data
+                        );
                         close(null);
                       }}
                     >
