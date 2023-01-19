@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import "./Card.css";
 
-function Card({ close, listName, listIndex, itemIndex, data, actions }) {
+function Card({ close, listName, listIndex, itemIndex, lists, data, actions }) {
   const [title, setTitle] = useState(data.name);
   const [newTitle, setNewTitle] = useState(data.name);
   const [editTitle, setEditTitle] = useState(false);
@@ -11,6 +11,10 @@ function Card({ close, listName, listIndex, itemIndex, data, actions }) {
   const [newDesc, setNewDesc] = useState(data.description);
   const [editDesc, setEditDesc] = useState(false);
   const [descHeight, setDescHeight] = useState(null);
+  const [subMenu, setSubMenu] = useState("");
+  const [destination, setDestination] = useState(listIndex);
+  const [togMove, setTogMove] = useState(false);
+  const [togCopy, setTogCopy] = useState(false);
   const [togDelete, setTogDelete] = useState(false);
 
   function OnInput() {
@@ -194,14 +198,106 @@ function Card({ close, listName, listIndex, itemIndex, data, actions }) {
           <div className="actionsCon">
             <h5 className="action-header">Add to card</h5>
             <div className="actions-menu">
-              <button className="row action-button">
-                <FontAwesomeIcon icon={solid("arrow-right")} />
-                Move
-              </button>
-              <button className="row action-button">
-                <FontAwesomeIcon icon={solid("copy")} />
-                Copy
-              </button>
+              <div className="dropdownCon">
+                <button
+                  className="row action-button"
+                  onClick={() => setTogMove(true)}
+                >
+                  <FontAwesomeIcon icon={solid("arrow-right")} />
+                  Move
+                </button>
+                {togMove && (
+                  <div className="column dropdown">
+                    <div className="row dropdown-title">
+                      <h5>Move card?</h5>
+                      <button onClick={() => setTogMove(false)}>
+                        <FontAwesomeIcon icon={solid("xmark")} size="lg" />
+                      </button>
+                    </div>
+                    <hr />
+                    <div className="list-buttonsCon">
+                      <div className={subMenu === "list" ? "dropdownSec" : ""}>
+                        <button
+                          className="list-button"
+                          onClick={() => {
+                            subMenu === ""
+                              ? setSubMenu("list")
+                              : setSubMenu("");
+                          }}
+                        >
+                          List:
+                          {" " + lists[destination].title}
+                        </button>
+                        {subMenu === "list" && (
+                          <div>
+                            {lists.map((list, index) => {
+                              return (
+                                <button
+                                  key={index}
+                                  className={
+                                    index === destination
+                                      ? "dropdown-select"
+                                      : "list-button"
+                                  }
+                                  onClick={() => {
+                                    setDestination(index);
+                                    setSubMenu("");
+                                  }}
+                                >
+                                  {list.title}
+                                </button>
+                              );
+                            })}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                    <button
+                      className="confirm-button other-button"
+                      onClick={() => {
+                        actions["move"](
+                          listIndex,
+                          itemIndex,
+                          destination,
+                          data
+                        );
+                        close(null);
+                      }}
+                    >
+                      Move
+                    </button>
+                  </div>
+                )}
+              </div>
+              <div className="dropdownCon">
+                <button
+                  className="row action-button"
+                  onClick={() => setTogCopy(true)}
+                >
+                  <FontAwesomeIcon icon={solid("copy")} />
+                  Copy
+                </button>
+                {togCopy && (
+                  <div className="column dropdown">
+                    <div className="row dropdown-title">
+                      <h5>Copy card?</h5>
+                      <button onClick={() => setTogCopy(false)}>
+                        <FontAwesomeIcon icon={solid("xmark")} size="lg" />
+                      </button>
+                    </div>
+                    <hr />
+                    <button
+                      className="confirm-button other-button"
+                      onClick={() => {
+                        actions["move"](listIndex, destination);
+                        close(null);
+                      }}
+                    >
+                      Copy
+                    </button>
+                  </div>
+                )}
+              </div>
               <div className="dropdownCon">
                 <button
                   className="row action-button"
@@ -224,7 +320,7 @@ function Card({ close, listName, listIndex, itemIndex, data, actions }) {
                       won’t be able to re-open the card. There is no undo.
                     </p>
                     <button
-                      className="delete-button"
+                      className="confirm-button delete-button"
                       onClick={() => {
                         actions["delete"](listIndex, itemIndex);
                         close(null);

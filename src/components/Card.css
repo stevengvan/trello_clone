@@ -6,7 +6,7 @@
   top: 0;
   left: 0;
   width: 100vw;
-  z-index: 5;
+  z-index: 1;
   height: 100vh;
   overflow-y: auto;
 }
@@ -171,6 +171,13 @@
 .actions-menu {
   width: 100%;
 }
+.actions-menu *:not(:last-child) {
+  margin-bottom: 5px;
+}
+
+.dropdownCon {
+  position: relative;
+}
 
 .action-button {
   color: black;
@@ -193,16 +200,16 @@
   margin: 0 10px 0 0;
 }
 
-.dropdownCon {
-  position: relative;
-}
-
 .dropdown {
   border: 1px gray solid;
+  width: 100%;
   padding: 0.5rem;
   top: 1.75rem;
+  left: 0;
   position: absolute;
   align-items: center;
+  background-color: white;
+  z-index: 5 !important;
 }
 .dropdown-title {
   width: 100%;
@@ -227,17 +234,61 @@
   margin-bottom: 10px;
 }
 
-.delete-button {
+.dropdownSec {
+  background-color: #7a7a7a;
+}
+
+.dropdown-menu {
+  margin-top: -20px;
+}
+
+.dropdown-select {
+  color: black;
+  background-color: #416ea7;
+  padding: 0.5rem;
+  height: 35px;
+  width: 100%;
+  border: none;
+  text-align: left;
+}
+
+.list-button {
+  color: black;
+  background-color: transparent;
+  padding: 0.5rem;
+  height: 35px;
+  width: 100%;
+  border: none;
+  text-align: left;
+}
+.list-button:hover {
+  background-color: #adadad;
+  transition-duration: 250ms;
+  cursor: pointer;
+}
+
+.copy-input {
+  height: 60px;
+  font-size: 16px !important;
+  resize: vertical;
+}
+
+.confirm-button {
   padding: 5px 0;
   border-radius: 5px;
   width: 100%;
   border: none;
-  background-color: rgb(176, 70, 50);
   color: white;
 }
-.delete-button:hover {
+.confirm-button:hover {
   cursor: pointer;
-  background-color: rgb(155, 54, 34);
+  background-color: rgba(0, 0, 0, 0.75);
+}
+.delete-button {
+  background-color: rgb(176, 70, 50);
+}
+.other-button {
+  background-color: rgb(45, 108, 243);
 }
 
 @media screen and (min-device-width: 600px) and (min-device-height: 450px) {
