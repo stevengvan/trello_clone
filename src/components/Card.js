@@ -4,19 +4,15 @@ import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import "./Card.css";
 
 function Card({ close, listName, listIndex, itemIndex, lists, data, actions }) {
+  const [toggle, setToggle] = useState("");
+  const [subMenu, setSubMenu] = useState("");
   const [title, setTitle] = useState(data.name);
   const [newTitle, setNewTitle] = useState(data.name);
-  const [editTitle, setEditTitle] = useState(false);
-  const [description, setDescription] = useState(data.description);
+  const [desc, setDesc] = useState(data.description);
   const [newDesc, setNewDesc] = useState(data.description);
-  const [editDesc, setEditDesc] = useState(false);
   const [descHeight, setDescHeight] = useState(null);
-  const [subMenu, setSubMenu] = useState("");
-  const [destinationList, setDestinationList] = useState(listIndex);
-  const [destinationPos, setDestinationPos] = useState(0);
-  const [togMove, setTogMove] = useState(false);
-  const [togCopy, setTogCopy] = useState(false);
-  const [togDelete, setTogDelete] = useState(false);
+  const [destList, setDestList] = useState(listIndex);
+  const [destIndex, setDestIndex] = useState(0);
 
   function OnInput() {
     this.style.height = 0;
@@ -25,28 +21,27 @@ function Card({ close, listName, listIndex, itemIndex, lists, data, actions }) {
 
   const resizeTextAreas = useCallback(
     (cancel) => {
+      const desc_input = document.getElementById("description");
+
       // reset description height if cancelling edit
-      if (cancel === true) {
-        const txDesc = document.getElementById("description");
-        txDesc.setAttribute("style", "height:" + descHeight + "px");
+      if (cancel === true && desc !== newDesc) {
+        desc_input.setAttribute("style", "height:" + descHeight + "px");
       }
-      const tx = document.getElementsByTagName("textarea");
-      for (let i = 0; i < tx.length; i++) {
-        tx[i].setAttribute(
+      const inputs = document.getElementsByTagName("textarea");
+      for (let i = 0; i < inputs.length; i++) {
+        inputs[i].setAttribute(
           "style",
-          "height:" + tx[i].scrollHeight + "px;overflow-y:hidden;"
+          "height:" + inputs[i].scrollHeight + "px;overflow-y:hidden;"
         );
 
-        tx[i].addEventListener("input", OnInput, false);
+        inputs[i].addEventListener("input", OnInput, false);
       }
 
       const card = document.getElementById("card");
       const newTitleHeight = parseInt(
         document.getElementById("title").style.height.slice(0, -2)
       );
-      const newDescHeight = parseInt(
-        document.getElementById("description").style.height.slice(0, -2)
-      );
+      const newDescHeight = parseInt(desc_input.style.height.slice(0, -2));
       card.setAttribute(
         "style",
         "height:" + (820 + newDescHeight - 493 + newTitleHeight - 150) + "px"
@@ -59,12 +54,12 @@ function Card({ close, listName, listIndex, itemIndex, lists, data, actions }) {
     "resize",
     function () {
       const card = document.getElementById("card");
-      const tx = document.getElementsByTagName("textarea");
+      const inputs = document.getElementsByTagName("textarea");
 
-      for (let i = 0; i < tx.length; i++) {
-        tx[i].setAttribute("style", "height: 30px; overflow-y:hidden;");
+      for (let i = 0; i < inputs.length; i++) {
+        inputs[i].setAttribute("style", "height: 30px; overflow-y:hidden;");
 
-        tx[i].addEventListener("input", OnInput, false);
+        inputs[i].addEventListener("input", OnInput, false);
       }
       card.setAttribute("style", "height: 800px; overflow-y:hidden;");
       setTimeout(function () {
@@ -76,9 +71,9 @@ function Card({ close, listName, listIndex, itemIndex, lists, data, actions }) {
 
   useEffect(() => {
     resizeTextAreas();
-    const txDesc = document.getElementById("description");
-    setDescHeight(txDesc.style.height);
-  }, [editTitle, editDesc, resizeTextAreas]);
+    const desc_input = document.getElementById("description");
+    setDescHeight(desc_input.style.height);
+  }, [toggle, resizeTextAreas]);
 
   const changeTitle = (e) => {
     if (newTitle.length > 0) {
@@ -97,23 +92,23 @@ function Card({ close, listName, listIndex, itemIndex, lists, data, actions }) {
   };
 
   const changeDesc = (e) => {
-    setDescription(newDesc);
+    setDesc(newDesc);
     actions["change"](listIndex, itemIndex, {
       name: newTitle,
       description: newDesc,
     });
     e.target.blur();
-    setEditDesc(false);
+    setToggle("");
     setTimeout(function () {
       resizeTextAreas();
     }, 100);
   };
 
   return (
-    <div className="container" onClick={() => close(null)}>
-      <div id="card" className="card" onClick={(e) => e.stopPropagation()}>
+    <div id="background" onClick={() => close(null)}>
+      <div id="card" onClick={(e) => e.stopPropagation()}>
         <button
-          className="close"
+          id="close"
           onClick={() => {
             close(null);
           }}
@@ -122,14 +117,14 @@ function Card({ close, listName, listIndex, itemIndex, lists, data, actions }) {
         </button>
 
         {/* Title */}
-        <div className="row">
+        <div id="title-sec">
           <FontAwesomeIcon icon={solid("credit-card")} className="icon" />
-          <div className="cardName">
+          <div id="title-con">
             <textarea
               id="title"
-              className={editTitle ? "name-edit" : "name-text"}
+              className={toggle === "title-edit" ? "title-edit" : "title-text"}
               value={newTitle}
-              onClick={() => setEditTitle(true)}
+              onClick={() => setToggle("title-edit")}
               onChange={(e) => {
                 setNewTitle(e.target.value.replace(/[\r\n\v]+/g, ""));
                 setTimeout(function () {
@@ -144,25 +139,25 @@ function Card({ close, listName, listIndex, itemIndex, lists, data, actions }) {
               }}
             />
 
-            <h5 className="listName">
+            <h5 id="list-name">
               in list <span>{listName}</span>
             </h5>
 
-            <h6 className="createdDate">Created on {data.date}</h6>
+            <h6 id="date-created">Created on {data.date}</h6>
           </div>
         </div>
 
         {/* Description */}
-        <div className="row">
+        <div id="desc-sec">
           <FontAwesomeIcon icon={solid("align-justify")} className="icon" />
-          <div className="descCon">
+          <div id="desc-con">
             <h4>Description</h4>
             <textarea
               id="description"
-              className={editDesc ? "description-edit" : "description"}
+              className={toggle === "desc-edit" ? "desc-edit" : "desc-text"}
               value={newDesc}
               placeholder="Add a more detailed description…"
-              onClick={() => setEditDesc(true)}
+              onClick={() => setToggle("desc-edit")}
               onChange={(e) => {
                 setNewDesc(e.target.value);
                 setTimeout(function () {
@@ -171,10 +166,10 @@ function Card({ close, listName, listIndex, itemIndex, lists, data, actions }) {
               }}
             />
 
-            {editDesc && (
-              <div className="row desc-buttons">
+            {toggle === "desc-edit" && (
+              <div id="desc-buttons">
                 <button
-                  className="btn save"
+                  id="save-button"
                   onClick={(e) => {
                     changeDesc(e);
                   }}
@@ -182,10 +177,10 @@ function Card({ close, listName, listIndex, itemIndex, lists, data, actions }) {
                   Save
                 </button>
                 <button
-                  className="btn cancel"
+                  id="cancel-button"
                   onClick={() => {
-                    setEditDesc(false);
-                    setNewDesc(description);
+                    setToggle("");
+                    setNewDesc(desc);
                     setTimeout(function () {
                       resizeTextAreas(true);
                     }, 100);
@@ -196,72 +191,70 @@ function Card({ close, listName, listIndex, itemIndex, lists, data, actions }) {
               </div>
             )}
           </div>
-          <div className="actionsCon">
-            <h5 className="action-header">Add to card</h5>
-            <div className="actions-menu">
-              <div className="dropdownCon">
+          <div id="actions-con">
+            <h5 id="action-header">Actions</h5>
+            <div id="actions-menu">
+              {/*///////////////////////////////////*/}
+              {/*//////////// Move Card ////////////*/}
+              {/*///////////////////////////////////*/}
+              <div className="dropdown-con">
                 <button
-                  className="row action-button"
-                  onClick={() => setTogMove(true)}
+                  className="action-button"
+                  onClick={() => setToggle("move-dropdown")}
                 >
                   <FontAwesomeIcon icon={solid("arrow-right")} />
                   Move
                 </button>
-                {togMove && (
-                  <div className="column dropdown">
-                    <div className="row dropdown-title">
+                {toggle === "move-dropdown" && (
+                  <div className="dropdown-popup">
+                    <div className="dropdown-title">
                       <h5>Move card?</h5>
-                      <button onClick={() => setTogMove(false)}>
+                      <button onClick={() => setToggle("")}>
                         <FontAwesomeIcon icon={solid("xmark")} size="lg" />
                       </button>
                     </div>
                     <hr />
-                    <div className="list-buttonsCon">
-                      <div className={subMenu === "list" ? "dropdownSec" : ""}>
-                        <button
-                          className="list-button"
-                          onClick={() => {
-                            subMenu === ""
-                              ? setSubMenu("move-list")
-                              : setSubMenu("");
-                          }}
-                        >
-                          List:
-                          {" " + lists[destinationList].title}
-                        </button>
-                        {subMenu === "move-list" && (
-                          <div>
-                            {lists.map((list, index) => {
-                              return (
-                                <button
-                                  key={index}
-                                  className={
-                                    index === destinationList
-                                      ? "dropdown-select"
-                                      : "list-button"
-                                  }
-                                  onClick={() => {
-                                    setDestinationList(index);
-                                    setSubMenu("");
-                                  }}
-                                >
-                                  {list.title}
-                                </button>
-                              );
-                            })}
-                          </div>
-                        )}
-                      </div>
+                    <div
+                      className={subMenu === "move-list" ? "dropdown-list" : ""}
+                    >
+                      <button
+                        className="list-buttons"
+                        onClick={() => {
+                          subMenu === ""
+                            ? setSubMenu("move-list")
+                            : setSubMenu("");
+                        }}
+                      >
+                        List:
+                        {" " + lists[destList].title}
+                      </button>
+                      {subMenu === "move-list" && (
+                        <div>
+                          {lists.map((list, index) => {
+                            return (
+                              <button
+                                key={index}
+                                className={
+                                  index === destList
+                                    ? "dropdown-select"
+                                    : "list-buttons"
+                                }
+                                onClick={() => {
+                                  setDestList(index);
+                                  setSubMenu("");
+                                }}
+                              >
+                                {list.title}
+                              </button>
+                            );
+                          })}
+                        </div>
+                      )}
                     </div>
                     <button
-                      className="confirm-button other-button"
+                      className="confirm-button send-button"
                       onClick={() => {
-                        actions["move"](
-                          listIndex,
-                          itemIndex,
-                          destinationList,
-                          data
-                        );
+                        actions["move"](listIndex, itemIndex, destList, data);
                         close(null);
                       }}
                     >
@@ -271,113 +264,112 @@ function Card({ close, listName, listIndex, itemIndex, lists, data, actions }) {
                 )}
               </div>
 
-              <div className="dropdownCon">
+              {/*///////////////////////////////////*/}
+              {/*//////////// Copy Card ////////////*/}
+              {/*///////////////////////////////////*/}
+              <div className="dropdown-con">
                 <button
-                  className="row action-button"
-                  onClick={() => setTogCopy(true)}
+                  className="action-button"
+                  onClick={() => setToggle("copy-dropdown")}
                 >
                   <FontAwesomeIcon icon={solid("copy")} />
                   Copy
                 </button>
-                {togCopy && (
-                  <div className="column dropdown">
-                    <div className="row dropdown-title">
+                {toggle === "copy-dropdown" && (
+                  <div className="dropdown-popup">
+                    <div className="dropdown-title">
                       <h5>Copy card?</h5>
-                      <button onClick={() => setTogCopy(false)}>
+                      <button onClick={() => setToggle("")}>
                         <FontAwesomeIcon icon={solid("xmark")} size="lg" />
                       </button>
                     </div>
                     <hr />
-                    <div className="list-buttonsCon">
-                      <div
-                        className={subMenu === "copy-list" ? "dropdownSec" : ""}
+                    <div
+                      className={subMenu === "copy-list" ? "dropdown-list" : ""}
+                    >
+                      <button
+                        className="list-buttons"
+                        onClick={() => {
+                          subMenu === ""
+                            ? setSubMenu("copy-list")
+                            : setSubMenu("");
+                        }}
                       >
-                        <button
-                          className="list-button"
-                          onClick={() => {
-                            subMenu === ""
-                              ? setSubMenu("copy-list")
-                              : setSubMenu("");
-                          }}
-                        >
-                          List:
-                          {" " + lists[destinationList].title}
-                        </button>
-                        {subMenu === "copy-list" && (
+                        List:
+                        {" " + lists[destList].title}
+                      </button>
+                      {subMenu === "copy-list" && (
+                        <div>
+                          {lists.map((list, index) => {
+                            return (
+                              <button
+                                key={index}
+                                className={
+                                  index === destList
+                                    ? "dropdown-select"
+                                    : "list-buttons"
+                                }
+                                onClick={() => {
+                                  setDestList(index);
+                                  setSubMenu("");
+                                }}
+                              >
+                                {list.title}
+                              </button>
+                            );
+                          })}
+                        </div>
+                      )}
+                    </div>
+                    <div
+                      className={
+                        subMenu === "copy-list-pos" ? "dropdown-list" : ""
+                      }
+                    >
+                      <button
+                        className="list-buttons"
+                        onClick={() => {
+                          subMenu === ""
+                            ? setSubMenu("copy-list-pos")
+                            : setSubMenu("");
+                        }}
+                      >
+                        Position:
+                        {" " + (destIndex + 1)}
+                      </button>
+                      {subMenu === "copy-list-pos" &&
+                        lists &&
+                        lists[destList].items.length > 0 && (
                           <div>
-                            {lists.map((list, index) => {
+                            {lists[destList].items.map((_, index) => {
                               return (
                                 <button
                                   key={index}
                                   className={
-                                    index === destinationList
+                                    index === destIndex
                                       ? "dropdown-select"
-                                      : "list-button"
+                                      : "list-buttons"
                                   }
                                   onClick={() => {
-                                    setDestinationList(index);
+                                    setDestIndex(index);
                                     setSubMenu("");
                                   }}
                                 >
-                                  {list.title}
+                                  {index + 1}
                                 </button>
                               );
                             })}
                           </div>
                         )}
-                      </div>
-                    </div>
-                    <div className="list-buttonsCon">
-                      <div
-                        className={
-                          subMenu === "copy-list-pos" ? "dropdownSec" : ""
-                        }
-                      >
-                        <button
-                          className="list-button"
-                          onClick={() => {
-                            subMenu === ""
-                              ? setSubMenu("copy-list-pos")
-                              : setSubMenu("");
-                          }}
-                        >
-                          Position:
-                          {" " + (destinationPos + 1)}
-                        </button>
-                        {subMenu === "copy-list-pos" &&
-                          lists &&
-                          lists[destinationList].items.length > 0 && (
-                            <div>
-                              {lists[destinationList].items.map((_, index) => {
-                                return (
-                                  <button
-                                    key={index}
-                                    className={
-                                      index === destinationPos
-                                        ? "dropdown-select"
-                                        : "list-button"
-                                    }
-                                    onClick={() => {
-                                      setDestinationPos(index);
-                                      setSubMenu("");
-                                    }}
-                                  >
-                                    {index + 1}
-                                  </button>
-                                );
-                              })}
-                            </div>
-                          )}
-                      </div>
                     </div>
                     <button
-                      className="confirm-button other-button"
+                      className="confirm-button send-button"
                       onClick={() => {
                         actions["copy"](
                           listIndex,
                           itemIndex,
-                          destinationList,
-                          destinationPos,
+                          destList,
+                          destIndex,
                           data
                         );
                         close(null);
@@ -388,19 +380,23 @@ function Card({ close, listName, listIndex, itemIndex, lists, data, actions }) {
                   </div>
                 )}
               </div>
-              <div className="dropdownCon">
+
+              {/*///////////////////////////////////*/}
+              {/*/////////// Delete Card ///////////*/}
+              {/*///////////////////////////////////*/}
+              <div className="dropdown-con">
                 <button
-                  className="row action-button"
-                  onClick={() => setTogDelete(true)}
+                  className="action-button"
+                  onClick={() => setToggle("delete-dropdown")}
                 >
                   <FontAwesomeIcon icon={solid("trash")} />
                   Delete
                 </button>
-                {togDelete && (
-                  <div className="column dropdown">
-                    <div className="row dropdown-title">
+                {toggle === "delete-dropdown" && (
+                  <div className="dropdown-popup">
+                    <div className="dropdown-title">
                       <h5>Delete card?</h5>
-                      <button onClick={() => setTogDelete(false)}>
+                      <button onClick={() => setToggle("")}>
                         <FontAwesomeIcon icon={solid("xmark")} size="lg" />
                       </button>
                     </div>
@@ -424,7 +420,6 @@ function Card({ close, listName, listIndex, itemIndex, lists, data, actions }) {
             </div>
           </div>
         </div>
-        {/* <div className="background" onClick={() => close(null)} /> */}
       </div>
     </div>
   );

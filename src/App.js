@@ -18,9 +18,9 @@ function App() {
 
   return (
     <div className="App">
-      <div className="board-title">
+      <div id="board-title">
         <input
-          className="board-text"
+          id="board-text"
           value={placeholder}
           onChange={(e) => setPlaceholder(e.target.value)}
           onKeyDown={(e) => {

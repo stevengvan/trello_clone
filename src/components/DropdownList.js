@@ -1,50 +1,46 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  solid,
-  regular,
-  brands,
-  icon,
-} from "@fortawesome/fontawesome-svg-core/import.macro";
+import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import "./DropdownList.css";
 
 function Dropdown({ lIndex, setListMenu, actions, lists }) {
-  const [showMenu, setShowMenu] = useState("");
+  const [showMenu, setShowMenu] = useState("List Actions");
   const [subMenu, setSubMenu] = useState("");
   const [destination, setDestination] = useState(0);
-  const [newTitle, setNewTitle] = useState("");
+  const [listTitle, setListTitle] = useState("");
 
   return (
-    <div id="list-menu" className="list-menu">
-      <div className="list-menu-header">
-        <div className="row">
-          <button
-            className={showMenu != "" ? "show" : "hide"}
-            disabled={showMenu === "" ? true : false}
-            onClick={() => setShowMenu("")}
-          >
-            <FontAwesomeIcon icon={solid("arrow-left")} size="lg" />
-          </button>
-          <h5>{showMenu}</h5>
-          <button
-            className="list-menu-close"
-            onClick={() => {
-              setSubMenu("");
-              setShowMenu("");
-              setListMenu(false);
-            }}
-          >
-            <FontAwesomeIcon icon={solid("xmark")} size="lg" />
-          </button>
-        </div>
-        <hr />
+    <div id="list-menu">
+      <div id="list-menu-header">
+        <button
+          id={showMenu !== "List Actions" ? "show" : "hide"}
+          disabled={showMenu === "" ? true : false}
+          onClick={() => {
+            setShowMenu("List Actions");
+            setSubMenu("");
+          }}
+        >
+          <FontAwesomeIcon icon={solid("arrow-left")} size="lg" />
+        </button>
+        <h5>{showMenu}</h5>
+        <button
+          id="list-menu-close"
+          onClick={() => {
+            setSubMenu("");
+            setShowMenu("");
+            setListMenu(false);
+          }}
+        >
+          <FontAwesomeIcon icon={solid("xmark")} size="lg" />
+        </button>
       </div>
-      {showMenu === "" && (
-        <div className="list-buttonsCon">
+      <hr />
+      {showMenu === "List Actions" && (
+        <div className="list-buttons-con">
           <button
             className="list-button"
             onClick={() => {
-              actions["add"]("first");
+              actions["add"]("card-add-first");
               setListMenu(false);
             }}
           >
@@ -77,22 +73,18 @@ function Dropdown({ lIndex, setListMenu, actions, lists }) {
         </div>
       )}
       {showMenu === "Move List" && (
-        <div className="list-buttonsCon">
-          <div className={subMenu === "list" ? "dropdownCon" : ""}>
+        <div className="list-buttons-con">
+          <div className={subMenu === "move-list" ? "dropdown-con" : ""}>
             <button
               className="list-button"
               onClick={() => {
-                subMenu === "" ? setSubMenu("list") : setSubMenu("");
+                subMenu === "" ? setSubMenu("move-list") : setSubMenu("");
               }}
             >
-              Position:{" "}
-              {lists[destination].title +
-                " (Position " +
-                (destination + 1) +
-                ")"}
+              Position: {lists[destination].title}
             </button>
-            {subMenu === "list" && (
-              <div>
+            {subMenu === "move-list" && (
+              <div className="dropdown-con">
                 {lists.map((list, index) => {
                   return (
                     <button
@@ -107,7 +99,7 @@ function Dropdown({ lIndex, setListMenu, actions, lists }) {
                         setSubMenu("");
                       }}
                     >
-                      {list.title + " (Position " + (index + 1) + ")"}
+                      {list.title}
                     </button>
                   );
                 })}
@@ -127,14 +119,14 @@ function Dropdown({ lIndex, setListMenu, actions, lists }) {
         </div>
       )}
       {showMenu === "Copy List" && (
-        <div className="list-buttonsCon">
+        <div className="list-buttons-con">
           <textarea
             className="copy-input"
-            value={newTitle}
-            onChange={(e) => setNewTitle(e.target.value)}
+            value={listTitle}
+            onChange={(e) => setListTitle(e.target.value)}
             onKeyDown={(e) => {
               if (e.key === "Enter") {
-                actions["copy"](lIndex, newTitle);
+                actions["copy"](lIndex, listTitle);
                 setListMenu(false);
               }
             }}
@@ -143,7 +135,7 @@ function Dropdown({ lIndex, setListMenu, actions, lists }) {
           <button
             className="list-button"
             onClick={() => {
-              actions["copy"](lIndex, newTitle);
+              actions["copy"](lIndex, listTitle);
               setListMenu(false);
             }}
           >
@@ -152,7 +144,7 @@ function Dropdown({ lIndex, setListMenu, actions, lists }) {
         </div>
       )}
       {showMenu === "Sort List" && (
-        <div className="list-buttonsCon">
+        <div className="list-buttons-con">
           <button
             className="list-button"
             onClick={() => actions["sort"](lIndex, "newest")}

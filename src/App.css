@@ -25,33 +25,19 @@ p {
   margin: 0 10px;
 }
 
-.row {
-  display: flex;
-  flex-direction: row;
-}
-
-.column {
-  display: flex;
-  flex-direction: column;
-}
-
-.button {
-  cursor: pointer;
-}
-
 .App {
   background-color: #275b9d;
   min-width: 100vw;
   max-height: 100vh;
 }
 
-.board-title {
+#board-title {
   display: flex;
   align-items: center;
   height: 10vh;
   padding-left: 0.5rem;
 }
-.board-text {
+#board-text {
   border-radius: 5px;
   font-weight: bold;
   font-size: calc(10px + 2vmin);
@@ -59,11 +45,11 @@ p {
   border-style: none;
   padding: 0.5rem 5px;
 }
-.board-text:hover {
+#board-text:hover {
   background-color: rgba(0, 0, 0, 0.25);
   transition-duration: 250ms;
   cursor: pointer;
 }
-.board-text:focus {
+#board-text:focus {
   background-color: white;
 }

@@ -1,4 +1,4 @@
-.list-menu {
+#list-menu {
   background-color: white;
   border-radius: 5px;
   border: 1px #979797 solid;
@@ -9,42 +9,42 @@
   position: absolute;
   z-index: 1;
 }
-.list-menu-header {
+#list-menu-header {
   padding: 0.5rem;
   width: 100%;
+  display: flex;
+  justify-content: space-between;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-.list-menu-header .row {
-  position: relative;
-  width: 100%;
-  justify-content: space-between;
-  margin-bottom: 5px;
+#list-menu-header * {
+  display: inline-block;
 }
-.list-menu-header .row button {
+#list-menu-header button {
   color: #424242;
   background-color: transparent;
   border: none;
 }
-.list-menu-header .row .hide {
+#hide {
   opacity: 0;
 }
-.list-menu-header .row .show {
+#show {
   opacity: 1;
 }
-.list-menu-header .row .show:hover {
+#show:hover {
   cursor: pointer;
 }
-.list-menu-close:hover {
+#list-menu-close:hover {
   cursor: pointer;
   color: rgb(20, 20, 20);
 }
-.list-menu-header .hr {
-  width: 100%;
+
+hr {
+  width: 95%;
 }
 
-.list-buttonsCon {
+.list-buttons-con {
   width: 100%;
 }
 
@@ -63,7 +63,7 @@
   cursor: pointer;
 }
 
-.dropdownCon {
+.dropdown-con {
   background-color: #7a7a7a;
 }
 
