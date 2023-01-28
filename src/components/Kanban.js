@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import Card from "./Card";
-import Dropdown from "./DropdownList";
+import ListMenu from "./ListMenu";
 import "./Kanban.css";
 
 function Kanban() {
@@ -23,13 +23,8 @@ function Kanban() {
         },
         {
           name: "Hello World!",
-          date: "1/14/2023, 7:45:52 AM",
-          description: "earthling",
-        },
-        {
-          name: "Hello World!",
           date: "1/14/2023, 7:55:52 AM",
-          description: "worm",
+          description: "Simply a statement",
         },
       ],
     },
@@ -59,7 +54,6 @@ function Kanban() {
   const dragNode = useRef();
 
   const handleDragStart = (e, params) => {
-    console.log("drag starting..", params);
     dragItem.current = params;
     dragNode.current = e.target;
     dragNode.current.addEventListener("dragend", handleDragEnd);
@@ -69,7 +63,6 @@ function Kanban() {
   };
 
   const handleDragEnter = (e, params) => {
-    console.log("Entering drag..", params);
     const currItem = dragItem.current;
     setLists((oldList) => {
       let newList = JSON.parse(JSON.stringify(oldList));
@@ -84,7 +77,6 @@ function Kanban() {
   };
 
   const handleDragEnd = () => {
-    console.log("Ending drag..");
     setDragging(false);
     dragNode.current.removeEventListener("dragend", handleDragEnd);
     dragItem.current = null;
@@ -255,7 +247,6 @@ function Kanban() {
       {currCardIndex != null && (
         <Card
           close={setCurrCardIndex}
-          listName={currListName}
           listIndex={currList}
           itemIndex={currCardIndex}
           lists={lists}
@@ -296,7 +287,7 @@ function Kanban() {
                   <FontAwesomeIcon icon={solid("ellipsis")} size="xl" />
                 </button>
                 {listMenu && lIndex === currList && (
-                  <Dropdown
+                  <ListMenu
                     lIndex={lIndex}
                     setListMenu={setListMenu}
                     actions={{
@@ -360,6 +351,7 @@ function Kanban() {
                       dragging ? getStyles({ lIndex, iIndex }) : "list-card"
                     }
                     onClick={() => {
+                      setListMenu(false);
                       setCurrListName(list.title);
                       setCurrList(lIndex);
                       setCurrCard(list["items"][iIndex]);

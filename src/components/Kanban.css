@@ -213,3 +213,9 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
+
+@media screen and (max-device-width: 600px), (max-device-height: 450px) {
+  .list-options {
+    position: unset;
+  }
+}

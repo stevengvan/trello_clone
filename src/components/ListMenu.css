@@ -1,3 +1,8 @@
+#togBackground {
+  background-color: rgba(0, 0, 0, 0);
+  z-index: 5;
+  position: absolute;
+}
 #list-menu {
   background-color: white;
   border-radius: 5px;
@@ -7,7 +12,10 @@
   flex-direction: column;
   align-items: center;
   position: absolute;
-  z-index: 1;
+  z-index: 10;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 #list-menu-header {
   padding: 0.5rem;
@@ -85,4 +93,22 @@ hr {
   height: 60px;
   font-size: 16px !important;
   resize: vertical;
+}
+
+@media screen and (max-device-width: 600px), (max-device-height: 450px) {
+  #togBackground {
+    background-color: rgba(0, 0, 0, 0.5);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  #list-menu {
+    bottom: 0;
+    left: 0;
+    width: 100%;
+  }
 }

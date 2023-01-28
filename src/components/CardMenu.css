@@ -1,0 +1,128 @@
+#actions-con {
+  width: 30%;
+}
+
+#action-header {
+  margin-bottom: 10px;
+}
+
+#actions-menu *:not(:last-child) {
+  margin-bottom: 5px;
+}
+
+.action-button {
+  color: black;
+  width: 100%;
+  border: none;
+  background-color: rgb(197, 197, 197);
+  padding: 0.35rem;
+  border-radius: 2.5px;
+  display: flex;
+  text-align: left;
+  align-items: center;
+}
+.action-button:hover {
+  cursor: pointer;
+  background-color: rgb(167, 167, 167);
+}
+.action-button:not(:last-child) {
+  margin-bottom: 5px;
+}
+.action-button *:first-child {
+  margin: 0 10px 0 0;
+}
+
+.dropdown-popup {
+  border: 1px gray solid;
+  width: 100%;
+  padding: 0.5rem;
+  position: absolute;
+  align-items: center;
+  background-color: white;
+  left: 0;
+  z-index: 5 !important;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.dropdown-popup p {
+  text-align: center;
+}
+
+.dropdown-title {
+  width: 100%;
+  position: relative;
+  margin-bottom: 5px;
+  display: flex;
+  justify-content: space-between;
+}
+.dropdown-title *:last-child {
+  color: black;
+  background-color: transparent;
+  border: none;
+}
+.dropdown-title *:last-child:hover {
+  cursor: pointer;
+}
+
+.dropdown-list {
+  background-color: #7a7a7a;
+}
+
+.dropdown-select {
+  color: black;
+  background-color: #416ea7;
+  padding: 0.5rem;
+  height: 35px;
+  width: 100%;
+  border: none;
+  text-align: left;
+}
+
+.list-buttons {
+  color: black;
+  background-color: transparent;
+  padding: 0.5rem;
+  height: 35px;
+  width: 100%;
+  border: none;
+  text-align: left;
+}
+.list-buttons:hover {
+  background-color: #adadad;
+  transition-duration: 250ms;
+  cursor: pointer;
+}
+
+.copy-input {
+  height: 60px;
+  font-size: 16px !important;
+  resize: vertical;
+}
+
+.confirm-button {
+  padding: 5px 0;
+  border-radius: 5px;
+  width: 100%;
+  border: none;
+  color: white;
+}
+.confirm-button:hover {
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.75);
+}
+.delete-button {
+  background-color: rgb(176, 70, 50);
+}
+.send-button {
+  background-color: rgb(45, 108, 243);
+}
+
+@media screen and (min-device-width: 600px) and (min-device-height: 450px) {
+  .dropdown-con {
+    position: relative;
+  }
+  .drowpdown-popup {
+    top: 1.75rem;
+  }
+}
